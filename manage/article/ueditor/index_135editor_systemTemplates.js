@@ -1,4 +1,5 @@
 $(function () {
+    
     var templateCache = {};
     //?????????????????????????
     $("[href='#systemTemplates']").click(function () {
@@ -68,7 +69,7 @@ $(function () {
                     .css("top", "0px")
                     .css("left", "0px")
                     .css("z-index", 2);
-                var closeTitle = $("<p>????б?</p>");
+                var closeTitle = $("<p>???????</p>");
                 var closeContainer = $("<button class='btn'></button>").text("???")
                     .on("click", function () {
                         templateContainer.remove();
@@ -111,8 +112,8 @@ $(function () {
             });
 
         //????? ?????????icon ???????
-        var icon_miaoshua = $("<span class='glyphicon glyphicon-edit' aria-hidden='true'>???</span>")
-        var icon_charu = $("<span class='glyphicon glyphicon-log-in' aria-hidden='true'>????</span>")
+        var icon_miaoshua = $("<span class='glyphicon glyphicon-edit' aria-hidden='true'>秒刷</span>")
+        var icon_charu = $("<span class='glyphicon glyphicon-log-in' aria-hidden='true'>插入</span>")
         miaoshua.append(icon_miaoshua);
         charu.append(icon_charu);
         cover.append(miaoshua);
@@ -168,6 +169,9 @@ $(function () {
     $("#personalTemplates").on("mouseenter", ".ParpersonalTempContainer", showDeleteIcon);
     $("#personalTemplates").on("mouseleave", ".ParpersonalTempContainer", hideDeleteIcon);
 
+    $("#personalTemplates").on("click", "li", refreshTemplateByCategory);
+    $("#otherColleagueTemplates").on("click", "li", refreshOtherTemplateByCategory);
+
     $("#personalTemplates").on("click", ".glyphicon.glyphicon-trash.del", delTemplate);
 
 
@@ -196,24 +200,38 @@ $(function () {
         event.stopPropagation();
     }
 
-    function refreshOtherColleagueTemplates(){
-        $("#otherColleagueTemplates").empty();
-        if (!$.trim($("#otherColleagueTemplates").html())) {
-            var url = './article_template_list.asp';
+    function refreshOtherColleagueTemplates(category){
+
+        $("#otherColleagueTemplates > div").empty();
+        if (!$.trim($("#otherColleagueTemplates > div").html())) {
+            var url="";
+            if(category){
+                url = './article_template_list.asp';
+            }
+            else{
+                
+                url = './article_template_list.asp';
+
+            }
             $.get(url).then(function (data) {
                 //var html = $.html(data).text();
-                var target = wrapItemsFromBackend(data);
+                var target = wrapItemsFromBackend(data, category);
                 $("#otherColleagueTemplates").html(target.html());
             });
         }
     }
 
-    function refreshPersonalTemplates(){
-        $("#personalTemplates").empty();
-        if (!$.trim($("#personalTemplates").html())) {
-            var url = './article_template_list.asp?ismine=true';
+    function refreshPersonalTemplates(category){
+        $("#personalTemplates > div").empty();
+        if (!$.trim($("#personalTemplates > div").html())) {
+            var url="";
+            if(category){
+                url = './article_template_list.asp?ismine=true';
+            }else{
+                url = './article_template_list.asp?ismine=true';
+            }
             $.get(url).then(function (data) {
-                var target = wrapItemsFromBackend(data);
+                var target = wrapItemsFromBackend(data, category);
                 $("#personalTemplates").html(target.html());
             });
 
@@ -222,10 +240,42 @@ $(function () {
         }
     }
 
-    function wrapItemsFromBackend(data) {
+    function refreshTemplateByCategory(){
+        $('ul.categorydivs > li.list-group-item').removeClass('active');
+        $(this).addClass("active");
+
+        refreshPersonalTemplates($(this).text());
+    }
+
+    function refreshOtherTemplateByCategory(){
+        $('ul.categorydivs > li.list-group-item').removeClass('active');
+        $(this).addClass("active");
+        refreshOtherColleagueTemplates($(this).text());
+    }
+
+    function addTemplateCagegory(activeTemplate){
+        var templateCategory=["金银牌VIP", "独家视点", "市场快报", "国际热点", "上市公司", "其他"];   
+        
+        var categorydivs = $("<ul class='list-inline list-group categorydivs'></ul>");
+        $.each(templateCategory, function(index, data){
+            if(activeTemplate == data){
+                var categoryDiv = $("<li class='list-group-item active'></li>").text(data);
+                categorydivs.append(categoryDiv);
+            }else{
+
+                var categoryDiv = $("<li class='list-group-item'></li>").text(data);
+                categorydivs.append(categoryDiv);
+            }
+        });
+
+        return categorydivs;
+    }
+
+    function wrapItemsFromBackend(data, activeCategory) {
         var refineData = "<div>" + data + "</div>";
-                
         var target = $("<div></div>");
+        var categorydivs = addTemplateCagegory(activeCategory);
+        target.append(categorydivs);
         $(refineData).find(".personalTempContainer").each(function(){
             var divContainer = $("<div class='ParpersonalTempContainer'></div>").append($(this));
             target.append(divContainer);
@@ -238,7 +288,7 @@ $(function () {
         var html = UE.getEditor('editor').getContent();
         var url = './article_template_add.asp';
         $.post(url, { content: html }, function (data) {
-            alert("保存模板成功！");
+            alert("?????????");
             refreshPersonalTemplates();
         });
     });

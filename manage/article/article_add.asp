@@ -49,10 +49,13 @@
     <script src="./ueditor/index_135editor_styles.js"></script>
     <script src="./ueditor/index_135editor_htmlParsersList.js"></script>
     <script src="./ueditor/index_135editor_systemTemplates.js"></script>
+    <script src="./ueditor/templateCategory.js"></script>
     <script src="./ueditor/index_135editor_draft.js"></script>
     <script src="./js/dom-to-image.js"></script>
     <script src="./js/article_add.js"></script>
     <link href="./article_add.css" rel="stylesheet">
+
+    
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -311,6 +314,9 @@
                                                 <a href="#editor-tpls" aria-controls="editor-tpls" role="tab" data-toggle="tab">模版</a>
                                             </li>
                                             <li role="presentation" style="width: 120px;">
+                                                <a href="#templateCategory" aria-controls="editor-draft" role="tab" data-toggle="tab">模版类别</a>
+                                            </li>
+                                            <li role="presentation" style="width: 120px;">
                                                 <a href="#editor-draft" aria-controls="editor-draft" role="tab" data-toggle="tab">草稿箱</a>
                                             </li>
                                         </ul>
@@ -536,6 +542,18 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div role="tabpanel" class="tab-pane pre-scrollable" id="templateCategory" style="max-height: 700px;">
+                                                <ul id="editor-tpls-navtab" class="nav nav-tabs" style="border: 0 none;">
+                                                    <li class="nav-item ignore col-sm-4 active" id="personal-tpl-list-li">
+                                                        <a class="nav-link" href="#templateCategoryList" data-refresh="always" data-url="" role="tab" data-toggle="tab"
+                                                            aria-selected="true">所有模板类别</a>
+                                                    </li>
+                                                    
+                                                </ul>
+                                                    <div id="templateCategoryList" class="tab-pane active " style="max-height: 700px;">
+
+                                                    </div>
+                                            </div>
                                             <div role="tabpanel" class="tab-pane pre-scrollable" id="editor-draft" style="max-height: 700px;">
                                                 <ul id="editor-tpls-navtab" class="nav nav-tabs" style="border: 0 none;">
                                                     <li class="nav-item ignore col-sm-4 active" id="personal-tpl-list-li">
@@ -548,6 +566,8 @@
 
                                                     </div>
                                             </div>
+
+                                            
                                         </div>
                                     </div>
                                 </div>
