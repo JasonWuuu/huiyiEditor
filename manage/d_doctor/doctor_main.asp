@@ -1,0 +1,386 @@
+<!-- #include virtual = "/include/wsql.asp" -->
+ <!-- #include virtual = "/include/mylib.asp" -->
+
+<!-- #include virtual = "/include/auth.asp" -->
+
+ <%
+ 
+'作者：马洪岩  于 2002-4-21 编写
+'功能：文章的查询条件
+'操作：本脚本任何人操作
+
+	IF REQUEST("HOME") <> "" THEN
+	Response.Redirect ("default.asp")
+	END IF
+	IF REQUEST("add") <> "" THEN
+	Response.Redirect ("doctor_add.asp")
+	END IF
+
+	
+	set CONN = Server.CreateObject("ADODB.Connection")
+    CONN.open CONNSTR,"",""  
+	set RS = Server.CreateObject("ADODB.RecordSet")
+	set RS1 = Server.CreateObject("ADODB.RecordSet")
+	set RSLIB = Server.CreateObject("ADODB.RecordSet")
+	%> 
+<html>
+<head>
+<title>医生查询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="../../manage/article/font.css">
+<style type="text/css">
+<!--
+.main {  font-size: 9pt}
+-->
+</style>
+</head>
+<script language="javascript">
+function GoToURL()
+{
+  
+  var tURL= "doctor_main.asp?hs_no="+document.un.hs_no.options[document.un.hs_no.selectedIndex].value;
+ // var tURL2= "&class_no="+document.un.class_no.options[document.un.class_no.selectedIndex].value;
+  var tURL1 = "&yy="+document.un.yy.value;
+  document.location=tURL+tURL1;
+}
+</script>
+<script language="javascript">
+function GoToURLA()
+{
+  
+  //var tURL= "doctor_add.asp?hs_no="+document.un.hs_no.options[document.un.hs_no.selectedIndex].value;
+  var tURL1 = "doctor_main.asp?yy="+document.un.yy.value;
+  document.location=tURL1;
+}
+</script>
+<body bgcolor="white">
+
+<div align="center"><font color="#0000FF" class="main">（内部资料系统管理）医生内容查询 </font></div>
+<hr size="1">
+<form method="POST" action="doctor_search.asp" name="un">
+  <table width="1140" border="0" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="1" align="center" cellpadding="6" bgcolor="#000000">
+    <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main">查询说明：</td>
+      <td colspan="3" class="main">如果不选择条件，系统默认全部符合</td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">医院：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <select name="hs_no"  onChange="GoToURL()">
+        <option value="">全部</option>
+           <%
+			  if request("yy") <> "" then
+			   SQL = "SELECT * FROM HOSPTIAL WHERE HS_NAME LIKE '%" & Request("yy") & "%' or alice_name like '%" & Request("yy") & "%' ORDER BY HS_NAME"
+			  else
+			   SQL = "SELECT * FROM HOSPTIAL ORDER BY HS_NAME"
+			  end if
+       
+        RS1.OPEN SQL,CONN,1,1
+		  I = 1
+        DO WHILE NOT RS1.EOF 
+							  IF I = 1 AND Request("hs_no") = "" THEN
+							  MY_HS_NO = RS1("HS_NO")
+							  MYXZZW = RS1("HS_NAME")
+							  ELSE
+									if Request("hs_no") <> "" then
+									MY_HS_NO = Request("hs_no")
+									end if
+							  END IF
+		  		IF Request("HS_NO") = RS1("HS_NO") THEN
+						MYXZZW = RS1("HS_NAME")
+        %>
+        <option value="<%=RS1("HS_NO")%>" selected>
+	
+		  <%=MID(RS1("HS_NAME"),1,50)%></option>
+        <%
+		  ELSE
+		  %>
+		  
+		   <option value="<%=RS1("HS_NO")%>" >
+	
+		  <%=MID(RS1("HS_NAME"),1,50)%></option>
+		  <%
+				END IF
+				I = I + 1
+        RS1.MOVENEXT
+        LOOP
+        RS1.CLOSE
+        %> 
+        </select>
+      
+      <input type="text" name="yy" size="10">
+		 <input type="button" name="yx" value="查询" onClick=GoToURLA();>
+      </td>
+    
+      
+    <td width="11%" class="main"> 
+      <div align="right">姓名：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="xm" size="30">
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">科室：</div>
+      </td>
+      
+    <td  class="main" width="51%"> 
+      <select name="class_no" >
+		   <option value="">科室</option>
+           <%
+        SQL = "SELECT * FROM D_CLASS WHERE HS_NO = '" & request("hs_no") & "' ORDER BY CLASS_NAME"
+        RS1.OPEN SQL,CONN,1,1
+        DO WHILE NOT RS1.EOF 
+        %>
+        <option value="<%=RS1("CLASS_NO")%>" >
+		  <%
+		  FOR I = 2 TO RS1("JIBIE")
+		  Response.Write("----")
+		  NEXT
+		  %>
+		  <%=MID(RS1("CLASS_NAME"),1,40)%></option>
+        <%
+        RS1.MOVENEXT
+        LOOP
+        RS1.CLOSE
+        %> 
+        </select>
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">地区：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="dq" size="20">
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+     
+      
+    <td width="12%" class="main"> 
+      <div align="right">相关字符：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="info_corre" size="50">
+		  </td>
+     
+    <td width="11%" class="main"> 
+      <div align="right">查找字符串：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="info_find" size="20">
+      </td>
+     
+    </tr>
+   <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">行政职务：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="zw" size="20">
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">学术职务 国家级：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="xszw_gja" size="20">
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">学术职称：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="zc" size="20">
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">国际任职：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="gjly_rz" size="20">
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">擅长疾病系统/部位：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="jbxt" size="20">
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">疾病名称：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="jbmc" size="20">
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">诊疗特长：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="zltc" size="20">
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">医生类别：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <select name="ysclass" >
+		  <option value="" selected>全部</option>
+        <option value="首席大医生" > 首席大医生</option>
+		   <option value="大医生" > 大医生</option>
+			 <option value="研究学者" >研究学者</option>
+		  </select>
+      </td>
+    </tr>
+	 
+	 <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">全国排名(>=)：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="qg_pm1" size="20">
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">全国排名(<)：</div>
+      </td>
+      
+    <td width="26%" class="main"> 
+      <input type="text" name="qg_pm2" size="20">
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+     
+      
+    <td width="12%" class="main"> 
+      <div align="right">输入人员：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <select name="username" >
+		 <option value="">全部</option>
+           <%
+        SQL = "SELECT * FROM PERSON"
+        RS1.OPEN SQL,CONN,1,1
+        DO WHILE NOT RS1.EOF 
+        %>
+        <option value="<%=RS1("user_name")%>" >
+		 
+		  <%=RS1("user_name")%></option>
+        <%
+        RS1.MOVENEXT
+        LOOP
+        RS1.CLOSE
+        %> 
+        </select>
+		  </td>
+    
+      
+    <td width="11%" class="main"> 
+      <div align="right">是否有照片</div>
+      </td>
+      
+    <td colspan="3" class="main" width="26%"> 
+      <select name="zp" >
+		  <option value="" selected>全部</option>
+        <option value="有" >有</option>
+		   <option value="无" > 无</option>
+		
+		  </select>
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+     
+      
+    <td width="12%" class="main"> 
+      <div align="right">排序字段：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <select name="pxzd" >
+		 <option value="NO">医生编号</option>
+         <option value="XM">医生姓名</option>
+		 <option value="HS_NO">医院编号</option>
+		 <option value="CLASS_NO">科室编号</option>
+		  <option value="USER_NAME">初始操作人</option>
+		 <option value="GX_USER">更新人员</option>
+		 <option value="GX_DATE">更新日期</option>
+		 <option value="QG_PM">复旦排名</option>
+		 <option value="BJ_QG_PM">北大排名</option>
+		 <option value="JCI_QG_PM">JCI排名</option>
+		 <option value="YSNR">内容多少</option>
+        </select>
+		  </td>
+    
+      
+    <td width="11%" class="main"> 
+      <div align="right">排序方法</div>
+      </td>
+      
+    <td colspan="3" class="main" width="26%"> 
+      <select name="pxff" >
+		  <option value="">升序</option>
+        <option value="DESC" >降序</option>
+		
+		  </select>
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+      
+    <td width="12%" class="main"> 
+      <div align="right">医生编号：</div>
+      </td>
+      
+    <td width="51%" class="main"> 
+      <input type="text" name="no" size="20">
+      </td>
+       
+    <td width="11%" class="main"> 
+      <div align="right">未知：</div>
+      </td>
+      
+    <td width="26%" class="main">&nbsp; </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td colspan="4"> 
+        <div align="center"><br>
+          <input type="submit" name="search" value="进行查询" >
+          <input type="reset" name="Submit2" value="重填信息">
+          <input type="submit" name="home" value="返回主页">
+        </div>
+      </td>
+  </table>
+</form>
+</body>
+</html>

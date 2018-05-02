@@ -1,0 +1,284 @@
+<!-- #include virtual = "/include/mylib.asp" -->
+
+<!-- #include virtual = "/include/auth.asp" -->
+<!-- #include virtual = "/include/wsql.asp" -->
+
+
+<%
+   Function check_op(s_chr,d_chr)
+ 	POP = INSTR(s_chr,d_chr)
+		IF POP >0 THEN
+		check_op = "checked"
+		ELSE
+		check_op = ""
+		END IF	
+ End Function
+
+ Function if_opa(s_chr,d_chr)
+	POP = INSTR(s_chr,d_chr)
+		IF POP >0 THEN
+		if_opa = "checked"
+		ELSE
+		if_opa = ""
+		END IF	
+ End Function
+ 
+ Function if_checkbox(s_chr,d_chr)
+	POP = INSTR(s_chr,"PZ"&d_chr&"ED")
+		IF POP >0 THEN
+		if_checkbox = "checked"
+		ELSE
+		if_checkbox = ""
+		END IF	
+ End Function 
+ 
+	IF REQUEST("HOME") <> "" THEN
+	Response.Redirect ("default.asp")
+	END IF
+	IF REQUEST("search") <> "" THEN
+	Response.Redirect ("doctor_main.asp")
+	END IF
+	set CONN = Server.CreateObject("ADODB.Connection")
+    CONN.open CONNSTR,"",""  
+	set RS = Server.CreateObject("ADODB.RecordSet")
+	set RS1 = Server.CreateObject("ADODB.RecordSet")
+	set RS2 = Server.CreateObject("ADODB.RecordSet")
+	set RS9 = Server.CreateObject("ADODB.RecordSet")
+	set RSLIB = Server.CreateObject("ADODB.RecordSet")
+%>
+<%
+
+    
+		
+		 s_fd_no = request("fd_no")
+		 s_jb_name =  request("jb_name")
+		 s_p_class_no = request("p_class_no")
+		 s_class_no = request("class_no")
+		 s_if_html =  request("if_html")
+		 s_info_find =  request("info_find")
+		 s_zzlb =  request("zzlb")
+		 s_bw = request("bw")
+		 s_jb_bm = request("jb_bm")
+		 s_cjzz = request("cjzz")
+		 s_cjby = request("cjby")
+		 s_sfcr = request("sfcr")
+		 s_fzpd = request("fzpd")
+		 s_cjjb = request("cjjb")
+		 s_num = request("num")
+		 s_jbbg = request("jbbg")
+
+		 
+					SQL = "SELECT TOP 1 * FROM JIBING WHERE JB_NAME = '" & s_jb_name & "' and fd_no = '" & s_fd_no & "' and jb_no <>'" & request("jb_no") & "'"
+				RS.Open SQL,CONN,adOpenKeyset ,adLockReadOnly
+					IF RS.RecordCount >0 THEN
+					Response.Write "记录增加重复，疾病，科室一样"
+					Response.End 
+					END IF
+				RS.Close 
+				
+			
+					'增加记录
+	  		
+	  				SQL = "SELECT top 1 * FROM JIBING WHERE JB_NO = '" & REQUEST("JB_NO") & "'"
+	  				RS1.Open SQL,CONN,adOpenKeyset ,adLockOptimistic 
+	  				RS1.MoveFirst
+	  				RS1("P_CLASS_NO") = s_p_class_no
+	  				RS1("jb_name") = s_jb_name
+	  			'	RS1("hs_name") = s_hs_name
+						RS1("class_no") = s_class_no
+						RS1("info_find") = s_info_find
+	  				RS1("zzlb") = s_zzlb
+	  				'RS1("JB_NO") = WB_FILE_NO
+	  				'RS1("IF_HTML") = s_if_html
+						RS1("fd_no") = S_fd_no
+						RS1("BW") = S_BW
+						RS1("JB_BM") = S_JB_BM
+						RS1("CJZZ") = S_CJZZ
+						RS1("CJBY") = S_CJBY
+						RS1("SFCR") = S_SFCR
+						RS1("FZPD") = S_FZPD
+						RS1("cjjb") = S_cjjb
+						RS1("num") = S_num
+						RS1("JBBG")= S_JBBG
+						RS1("INFO_FIND") = S_INFO_FIND
+	  				RS1.UpdateBatch 
+	  				RS1.Close 
+	  				
+					
+						ZZLB = s_zzlb
+		CJZZ = S_CJZZ
+		YY = ""
+			SQL1 = "SELECT * FROM D_CLASS WHERE FD_NO = '" & S_fd_no & "'"
+				RS1.Open SQL1,CONN,1,1
+					DO WHILE NOT RS1.EOF 
+						SQL2 = "SELECT XM FROM D_DOCTOR WHERE CLASS_NO = '" & RS1("CLASS_NO") & "'"
+						RS2.Open SQL2,CONN,1,1
+							DO WHILE NOT RS2.EOF 
+							YY = YY & RS2("XM")
+							RS2.MoveNext
+							LOOP
+						RS2.CLOSE 
+						SQL2 = "SELECT HS_NAME FROM HOSPTIAL WHERE HS_NO = '" & RS1("HS_NO") & "'"
+						RS2.Open SQL2,CONN,1,1
+							DO WHILE NOT RS2.EOF 
+							YY = YY & RS2("HS_NAME")
+							RS2.MoveNext
+							LOOP
+						RS2.CLOSE 
+						
+					RS1.MoveNext
+					LOOP
+				RS1.CLOSE 
+				
+						SQL = "SELECT top 1 * FROM JIBING  WHERE JB_NO = '" & REQUEST("JB_NO") & "'"
+	  				RS9.Open SQL,CONN,adOpenKeyset ,adLockOptimistic 
+	  				RS9.MoveFirst
+					RS9("INFO_FIND") = ZZLB & CJZZ & YY 
+					RS9.UpdateBatch 
+	  				RS9.Close 
+					
+					
+				
+%>
+<html>
+<head>
+<title>疾病信息修改成功</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="font.css">
+<style type="text/css">
+<!--
+.main {  font-size: 9pt}
+-->
+</style>
+</head>
+
+<body bgcolor="white">
+<div align="center"><font color="#0000FF" class="main">（内部资料系统管理）疾病系统修改 </font></div>
+<hr>
+<form method="POST" action="doctor_main.asp" name="un" >
+  <table width="580" border="0" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="1" align="center" cellpadding="6" bgcolor="#000000">
+    <tr bgcolor="#FFFFFF"> 
+      <td width="32%" class="main">类别：</td>
+      <td width="68%" class="main"> 
+          <%=DISPLAY_NAME("FD_CLASS",s_fd_no,"FD_NO","FD_NAME")
+        %> 
+
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">就诊一级科室：</td>
+      <td width="79%" class="main">
+       <%=s_p_class_no%>
+       
+          </td>
+    </tr>
+     <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">就诊二级科室：</td>
+      <td width="79%" class="main">
+       <%=s_class_no%>
+       
+          </td>
+    </tr>
+	  <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">疾病别名：</td>
+      <td width="79%" class="main">
+       <%=s_jb_bm%>
+       
+          </td>
+    </tr>
+	 
+	  <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">部位：</td>
+      <td width="79%" class="main">
+       <%=s_bw%>
+       
+          </td>
+    </tr>
+	  <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">症状列表：</td>
+      <td width="79%" class="main">
+        <%
+	Response.Write s_zzlb
+	
+        %>
+       
+          </td>
+    </tr>
+	  <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">常见症状：</td>
+      <td width="79%" class="main">
+        <%
+	Response.Write s_cjzz
+	
+        %>
+       
+          </td>
+    </tr>
+	  <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">常见病因：</td>
+      <td width="79%" class="main">
+        <%
+		Response.Write s_cjby
+		
+        %>
+       
+          </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">辅助判断：</td>
+      <td width="79%" class="main"> 
+       <%
+		Response.Write s_fzpd
+		
+        %>
+      </td>
+    </tr>
+	
+	 <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">是否传染：</td>
+      <td width="79%" class="main"> 
+        <%=s_sfcr%>
+      </td>
+    </tr>
+   
+      <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">查找字符串：</td>
+      <td width="79%" class="main"> 
+        <%=s_info_find%>
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="32%" class="main">推广地址：</td>
+      <td width="68%" class="main"> 
+     http://www.dakayi.net/jibing/J<%=REQUEST("jb_NO")%>.html
+        
+      </td>
+    </tr>
+	 <tr bgcolor="#FFFFFF"> 
+	 <td width="32%" class="main">现在推广:</td>
+      <td width="68%" class="main"> 
+     <a href="http://zhanzhang.baidu.com/linksubmit/url" target='_blank'>打开百度推广</a> （复制上面的网址进行提交）
+        
+      </td>
+    </tr>
+	  <tr bgcolor="#FFFFFF"> 
+      <td width="21%" class="main">疾病报告：</td>
+      <td width="79%" class="main">
+        <%
+		Response.Write s_jbbg
+		
+        %>
+       
+          </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td colspan="2"> 
+        <div align="center"><br>
+          <input type="button" name="add" value="关闭窗口" onclick=self.close();> 
+        </div>
+      </td>
+  </table>
+</form>
+</body>
+</html>

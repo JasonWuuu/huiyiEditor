@@ -1,0 +1,9 @@
+body{text-align:center;}
+.tabTitlesContainer{text-align:center;font-size:small;cursor:hand;width:300px;border-width:thin;}
+.tabTitleUnSelected{background-color:Silver;width:100px;}
+.tabTitleUnSelected:hover{background-color:Orange;}
+.tabTitleSelected{background-color:Gray;width:100px;}
+#tabPagesContainer{text-align:left;font-size:small;font-size:small;width:98%;}
+.tabPageUnSelected{display: none;}
+.tabPageSelected{display:block;}
+.tabPage{height:80px;} 

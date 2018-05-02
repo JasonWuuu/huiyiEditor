@@ -1,0 +1,239 @@
+<!-- #include virtual = "/include/mylib.asp" -->
+
+<!-- #include virtual = "/include/auth.asp" -->
+<!-- #include virtual = "/include/sql.asp" -->
+
+ <%
+ 
+	'作者：马洪岩  于 2002-4-21 编写
+	'功能：增加文章
+	'操作：本脚本操作人员操作
+ '判断级别
+ Function check_op(s_chr,d_chr)
+ 	POP = INSTR(s_chr,d_chr)
+		IF POP >0 THEN
+		check_op = "checked"
+		ELSE
+		check_op = ""
+		END IF	
+ End Function
+
+ Function if_opa(s_chr,d_chr)
+	POP = INSTR(s_chr,d_chr)
+		IF POP >0 THEN
+		if_opa = "checked"
+		ELSE
+		if_opa = ""
+		END IF	
+ End Function
+ 
+ Function if_checkbox(s_chr,d_chr)
+	POP = INSTR(s_chr,"PZ"&d_chr&"ED")
+		IF POP >0 THEN
+		if_checkbox = "checked"
+		ELSE
+		if_checkbox = ""
+		END IF	
+ End Function 
+	set CONN = Server.CreateObject("ADODB.Connection")
+    CONN.open CONNSTR,"",""  
+	set RS = Server.CreateObject("ADODB.RecordSet")
+	set RS1 = Server.CreateObject("ADODB.RecordSet")
+	set RS2 = Server.CreateObject("ADODB.RecordSet")
+	set RSLIB = Server.CreateObject("ADODB.RecordSet")
+'	IF Request.Cookies ("PRVI") <> 0 THEN
+'	Response.Write "对不起，您只能进行审核，请使用您增加内容的帐号进行登录，谢谢"
+'	Response.End 
+'	END IF
+	SQL1 = "SELECT DISTINCT ZDMC FROM FENSHU_DESC  WHERE NO = '" & REQUEST("NO") & "'"
+	RS1.Open SQL1,CONN,1,1
+	%> 
+<html>
+<head>
+<title>医生信息详细内容</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.main {  font-size: 9pt}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<div align="center"><font color="#0000FF" class="main">分数的-详细内容 </font></div>
+
+
+  <table width="1200" border="1" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="0" align="center" cellpadding="6" bgcolor="#000000">
+  <tr bgcolor="#FFFFFF"> 
+    <td width="8%" class="main"> 医生编号 </td>
+    <td width="6%" class="main"> 字段名称 </td>
+    <td width="7%" class="main"> 前字符 </td>
+    <td width="5%" class="main"> 后字符 </td>
+    <td width="4%" class="main"> 打分 </td>
+    <td width="30%" class="main"> 语句 </td>
+  </tr>
+  <%
+	TOTAL=0
+		Do While Not RS1.EOF
+			
+				SQL = "SELECT * FROM FENSHU_DESC WHERE NO = '" & REQUEST("NO") & "' AND ZDMC = '" & RS1("ZDMC") & "'"
+
+					RS.Open SQL,CONN,1,1
+
+					Do While Not RS.EOF
+		If RS("ST") = "T" THEN
+		TOTAL = CDbl(TOTAL) + RS("NUM")
+		End IF
+	%> 
+  <tr bgcolor="#FFFFFF"> 
+    <td width="8%" class="main"> <%=rs("no")%> </td>
+    <td width="6%" class="main"> <%=display_name("ZDLB",rs("zdmc"),"zd","zdmc")%> 
+    </td>
+    <td width="7%" class="main"> <%=rs("qzf")%> </td>
+    <td width="5%" class="main"> <%=rs("hzf")%> </td>
+    <td width="4%" class="main"> <%
+	If rs("st") = "T" then
+	Response.write(rs("num"))
+	
+	Else
+		Response.write("不计算")
+	
+	End if
+	%> 
+	
+	</td>
+    <td width="30%" class="main"> <%sjz=replace(rs("jz"),rs("qzf"),"<font color=blue>" & rs("qzf") & "</font>")%> <%sjz=replace(sjz,rs("hzf"),"<font color=blue>" & rs("hzf") & "</font>")%><%=sjz%></td>
+	
+  </tr>
+ <%
+			RS.MoveNext
+				Loop
+			RS.Close 
+			%> 
+  <tr bgcolor="#FFFFFF"> 
+    <td width="8%" class="main">该字段原文内容</td>
+    <td colspan="5" class="main">
+	<%
+	SQL2 = "SELECT TOP 1 " & RS1("ZDMC") & " FROM D_DOCTOR WHERE NO = '" & REQUEST("NO") & "'"
+
+					RS2.Open SQL2,CONN,1,1
+
+					IF RS2.RecordCount >0 THEN
+					Response.WRITE(RS2(0))
+					END IF
+			RS2.CLOSE 
+	%>
+	
+	</td>
+  </tr>
+  <%
+			RS1.MoveNext
+				Loop
+			RS1.Close 
+			%> 
+</table>
+<center>加分情况</center>
+
+
+<table width="1200" border="1" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="0" align="center" cellpadding="6" bgcolor="#000000">
+  <tr bgcolor="#FFFFFF"> 
+    <td width="8%" class="main"> 医生编号 </td>
+    <td width="6%" class="main"> 字段名称 </td>
+    <td width="7%" class="main"> 字符串前 </td>
+    <td width="7%" class="main"> 字符串后 </td>
+    <td width="5%" class="main"> 字段名称 </td>
+    <td width="4%" class="main"> 字符串前 </td>
+    <td width="4%" class="main"> 字符串后 </td>
+    <td width="30%" class="main"> 加分 </td>
+  </tr>
+  <%
+	SQL = "SELECT * FROM DFBZ_JB_DESC WHERE NO = '" & REQUEST("NO") & "'"
+	RS.Open SQL,CONN,1,1
+	
+		Do While Not RS.EOF
+			
+			
+	%> 
+  <tr bgcolor="#FFFFFF"> 
+    <td width="8%" class="main"> <%=rs("no")%> </td>
+    <td width="6%" class="main"> <%=display_name("ZDLB",rs("ZDA"),"zd","zdmc")%> 
+    </td>
+    <td width="7%" class="main"> <%=rs("ZFAQ")%> </td>
+    <td width="7%" class="main"> <%=rs("ZFAH")%> </td>
+    <td width="5%" class="main"> <%=display_name("ZDLB",rs("ZDB"),"zd","zdmc")%> </td>
+    <td width="4%" class="main"> <%=rs("ZFBQ")%>
+	
+	</td>
+	<td width="4%" class="main"> <%=rs("ZFBH")%>
+	
+	</td>
+    <td width="30%" class="main"> <%=rs("NUM")%> </td>
+	
+  </tr>
+  <tr bgcolor="#FFFFFF"> 
+    <td width="8%" class="main">该字段原文内容</td>
+    <td colspan="7" class="main">
+	<font color=red><%=display_name("ZDLB",rs("ZDA"),"zd","zdmc")%> </font>
+	<%
+	SQL2 = "SELECT TOP 1 " & rs("ZDA") & " FROM D_DOCTOR WHERE NO = '" & REQUEST("NO") & "'"
+
+					RS2.Open SQL2,CONN,1,1
+
+					IF RS2.RecordCount >0 THEN
+					SS=Replace(RS2(0),REPLACE(rs("zfaH")," ",""),"<font color=blue>" & REPLACE(rs("zfaH")," ","") & "</font>")
+					SS=Replace(SS,REPLACE(rs("zfaQ")," ",""),"<font color=blue>" & REPLACE(rs("zfaQ")," ","") & "</font>")
+					RESPONSE.Write(SS)
+					END IF
+			RS2.CLOSE 
+	%>
+	<p>
+	</p>
+	
+	<%
+	IF RS("ZDB") <> "" Then
+	%>
+	<font color=red><%=display_name("ZDLB",rs("ZDB"),"zd","zdmc")%> </font>
+	<%
+	SQL2 = "SELECT TOP 1 " & rs("ZDB") & " FROM D_DOCTOR WHERE NO = '" & REQUEST("NO") & "'"
+
+					RS2.Open SQL2,CONN,1,1
+
+					IF RS2.RecordCount >0 THEN
+					SS=Replace(RS2(0),REPLACE(rs("zfBQ")," ",""),"<font color=blue>" & REPLACE(rs("zfBQ")," ","") & "</font>")
+					SS=Replace(SS,REPLACE(rs("zfBH")," ",""),"<font color=blue>" & REPLACE(rs("zfBH")," ","") & "</font>")
+					RESPONSE.Write(SS)
+					END IF
+			RS2.CLOSE 
+	END IF
+	%>
+	</td>
+  </tr>
+ <%
+ TOTAL = CDBL(TOTAL) + RS("NUM")
+			RS.MoveNext
+				Loop
+			RS.Close 
+			%> 
+ 
+  
+</table>
+
+
+
+  <center>
+  合计总分:<%=total%>  ------- 数据内的分数：
+  <%
+  	SQL = "SELECT num FROM d_fenshu WHERE NO = '" & REQUEST("NO") & "'"
+	RS.Open SQL,CONN,1,1
+	if rs.RecordCount>0 then
+	response.Write(rs(0))
+	end if
+	rs.close 
+  %>
+ 
+   <input type="button" name="add" value="关闭窗口" onclick=self.close();> 
+   </center>
+</form>
+</body>
+</html>
