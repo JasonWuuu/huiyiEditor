@@ -160,6 +160,10 @@ function complete() {
     var listPromise = [];
     var imageUrlsList = [];
     $("#croppingImages").find(".imageContainer").each(function (index, entity) {
+        //判断图片是否被选中
+        if(!$(this).find("span > i.imageSeselected")[0]){
+            return;
+        } 
         var myImage$ = $(this).find("img");
         var url = myImage$.attr("src");
         if (!/^http/.test(url)) {
