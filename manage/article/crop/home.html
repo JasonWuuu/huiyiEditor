@@ -2,7 +2,7 @@
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.bundle.js"></script>
-<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <link href="https://fengyuanchen.github.io/cropper/css/cropper.css" rel="stylesheet">
 <script src="https://fengyuanchen.github.io/cropper/js/cropper.js"></script>
@@ -17,8 +17,29 @@
         width: 100%;
         border: 1px dashed gray;
     }
-</style>
 
+
+    .imageUnselected {
+        font-size: 30px;
+        color: #dcd2d2;
+        position: relative;
+        top: -30px;
+    }
+
+    .imageSeselected {
+        font-size: 30px;
+        color: #1960f8;
+        position: relative;
+        top: -30px;
+    }
+
+    .imageClose {
+
+        position: relative;
+        top: -20px;
+        height: 20px;
+    }
+</style>
 <div class="panel panel-default" style="padding:0px;margin:0px;">
     <div class="panel-body">
         <!-- Content -->

@@ -99,6 +99,16 @@ $(function () {
     $("#croppingImages").on("click", "button", function () {
         $(this).parent().remove();
     });
+    // 图片选择事件
+    $("#croppingImages").on("click", "i.fa-check-circle", function () {
+        if($(this).hasClass("imageUnselected")){
+            $(this).removeClass("imageUnselected");
+            $(this).addClass("imageSeselected");
+        }else {
+            $(this).removeClass("imageSeselected");
+            $(this).addClass("imageUnselected");
+        }
+    });
 
     //上传新图片时，清空裁剪按钮上的data-id的值
     $(".fa.fa-upload").on("click", function () {
@@ -139,7 +149,7 @@ function startCrop() {
 }
 
 function addImage(croppedImageUrl) {
-    var imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;"/><button type="button" class="close"><span aria-hidden="true">&times;</span></button></div>');
+    var imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;" /><span><i class="fa fa-check-circle imageUnselected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
     var clone$ = imageTemplate$.clone(true);
     clone$.attr("data-id", getImageId());
     clone$.find("img").attr("src", croppedImageUrl);
