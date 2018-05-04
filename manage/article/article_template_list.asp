@@ -18,11 +18,12 @@
 	'ÅÐ¶ÏÈ¨ÏÞ
 	
      ismine= REQUEST("ismine")
+	 cid= Request("cid")
 
     if ismine <> "" then
-		SQL = "select Id,Name,Content,CreatedBy,CreatedDatetime from A_TEMPLATE WHERE CreatedBy = '" & lcase(Request.Cookies("user_name")) & "' order by CreatedDatetime desc"
+		SQL = "select Id,Name,Content,CreatedBy,CreatedDatetime from A_TEMPLATE WHERE CategoryId='"+cid+"'"+" and CreatedBy = '" & lcase(Request.Cookies("user_name")) & "' order by CreatedDatetime desc"
     else
-        SQL = "select Id,Name,Content,CreatedBy,CreatedDatetime from A_TEMPLATE WHERE CreatedBy != '" & lcase(Request.Cookies("user_name")) & "' order by CreatedDatetime desc"
+        SQL = "select Id,Name,Content,CreatedBy,CreatedDatetime from A_TEMPLATE WHERE CategoryId='"+cid+"'"+" and CreatedBy != '" & lcase(Request.Cookies("user_name")) & "' order by CreatedDatetime desc"
 	end if
 
     RS.Open SQL,CONN,1,1
