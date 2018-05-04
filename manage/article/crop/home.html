@@ -26,7 +26,7 @@
         top: -30px;
     }
 
-    .imageSeselected {
+    .imageSelected {
         font-size: 30px;
         color: #1960f8;
         position: relative;
@@ -356,9 +356,13 @@
 
         </div>
     </div>
-    <div class="panel-footer text-right">
-        <button type="button" class="btn btn-secondary" onclick="window.close()">关闭</button>
-        <a class="btn btn-primary" href="javascript:void(0);" onclick="complete()">完成</a>
+    <div class="panel-footer" style="padding:0px 20px;">
+        <span class="text-left selected-area">已选中<font class="selectedCount"></font>/<font class="totalCount"></font></span>
+        <span class="text-right" style="float:right;">
+            <button type="button" class="btn btn-secondary" onclick="window.close()">关闭</button>
+            <a class="btn btn-primary" href="javascript:void(0);" onclick="complete()">完成</a>
+        </span>
+       
     </div>
 </div>
 <!-- /.modal -->

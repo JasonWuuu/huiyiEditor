@@ -75,6 +75,13 @@ var getImageId = (function () {
     };
 })();
 
+function calcSelectedImageCount() {
+    var totalCount = $("#croppingImages").find(".imageContainer").length;
+    var selectedCount = $("#croppingImages").find(".imageContainer").find(".imageSelected").length;
+    $(".selected-area .selectedCount").text(selectedCount);
+    $(".selected-area .totalCount").text(totalCount);
+}
+
 $(function () {
     function getInitImageList() {
         var info_file_id = window.opener.document.getElementById("info_file_id").value;
@@ -98,16 +105,19 @@ $(function () {
     //删除图片集合中的图片
     $("#croppingImages").on("click", "button", function () {
         $(this).parent().remove();
+        calcSelectedImageCount();
     });
+
     // 图片选择事件
     $("#croppingImages").on("click", "i.fa-check-circle", function () {
         if($(this).hasClass("imageUnselected")){
             $(this).removeClass("imageUnselected");
-            $(this).addClass("imageSeselected");
+            $(this).addClass("imageSelected");
         }else {
-            $(this).removeClass("imageSeselected");
+            $(this).removeClass("imageSelected");
             $(this).addClass("imageUnselected");
         }
+        calcSelectedImageCount();
     });
 
     //上传新图片时，清空裁剪按钮上的data-id的值
@@ -154,6 +164,7 @@ function addImage(croppedImageUrl) {
     clone$.attr("data-id", getImageId());
     clone$.find("img").attr("src", croppedImageUrl);
     $("#croppingImages").append(clone$);
+    calcSelectedImageCount();
 }
 
 function complete() {
@@ -161,7 +172,7 @@ function complete() {
     var imageUrlsList = [];
     $("#croppingImages").find(".imageContainer").each(function (index, entity) {
         //判断图片是否被选中
-        if(!$(this).find("span > i.imageSeselected")[0]){
+        if(!$(this).find("span > i.imageSelected")[0]){
             return;
         } 
         var myImage$ = $(this).find("img");
