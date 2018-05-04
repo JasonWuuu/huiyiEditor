@@ -42,7 +42,7 @@ function sumitImageFile(base64Codes) {
 
     //ajax Ã·Ωªform  
     $.ajax({
-        url: window.location.origin +'/manage/article/ueditor/asp/controller.asp?action=uploadimage',
+        url: 'http://img.dakayi.cc' +'/UE/asp/controller.asp?action=uploadimage',
         type: "POST",
         data: formData,
         //dataType: "text",
@@ -54,7 +54,7 @@ function sumitImageFile(base64Codes) {
             if (data) {
                 data = JSON.parse(data);
                 if (data.state == "SUCCESS") {
-                    deferred.resolve(window.location.origin + "/manage/article/ueditor/asp/" + data.url);
+                    deferred.resolve('http://img.dakayi.cc' + "/UE/asp/" + data.url);
                 }
                 else {
                     deferred.reject("error");

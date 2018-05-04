@@ -94,6 +94,7 @@ $(function () {
                 }
             });
         }
+        imageUrlList = concatUrl(imageUrlList);
         return imageUrlList;
     }
     //将图片加载到图片集中
@@ -110,10 +111,10 @@ $(function () {
 
     // 图片选择事件
     $("#croppingImages").on("click", "i.fa-check-circle", function () {
-        if($(this).hasClass("imageUnselected")){
+        if ($(this).hasClass("imageUnselected")) {
             $(this).removeClass("imageUnselected");
             $(this).addClass("imageSelected");
-        }else {
+        } else {
             $(this).removeClass("imageSelected");
             $(this).addClass("imageUnselected");
         }
@@ -172,9 +173,9 @@ function complete() {
     var imageUrlsList = [];
     $("#croppingImages").find(".imageContainer").each(function (index, entity) {
         //判断图片是否被选中
-        if(!$(this).find("span > i.imageSelected")[0]){
+        if (!$(this).find("span > i.imageSelected")[0]) {
             return;
-        } 
+        }
         var myImage$ = $(this).find("img");
         var url = myImage$.attr("src");
         if (!/^http/.test(url)) {
@@ -193,7 +194,7 @@ function complete() {
             var url = myImage$.attr("data-src");
             imageUrlsList.push(url);
         });
-
+        imageUrlsList = splitUrl(imageUrlsList);
         console.log(imageUrlsList);
         var croppedImageUrls = imageUrlsList.join("#");
 
@@ -204,7 +205,25 @@ function complete() {
 
         window.close();
     });
+}
 
+function splitUrl(urlArr) {
+    var result = [];
+    $(urlArr).each(function (index, entity) {
+        var item = entity.subString(entity.indexOf('/') + 1);
+        result.push(item);
+    });
+    return result;
+}
 
-
+function concatUrl(urlArr) {
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth() + 1).toString();
+    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + month + '/';
+    var result = [];
+    $(urlArr).each(function (index, entity) {
+        var item = preFixUrl + entity;
+        result.push(item);
+    });
+    return result;
 }

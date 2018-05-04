@@ -236,9 +236,7 @@ END IF
 					RS1("info_descn") = s_info_descn
 	  				RS1("info_find") = "NO"
 	  				'RS1("INFO_FILE") = s_info_file
-					'change by wucong, we will use full path
-					'RS1("INFO_FILE") = YEAR(DATE) & MM & "/" & FF(EI)
-					RS1("INFO_FILE") = FF(EI)
+					RS1("INFO_FILE") = YEAR(DATE) & MM & "/" & FF(EI)
 						RS1("SP_URL") = s_sp_url
 						RS1("SP_URL_OUT") = s_sp_url_out
 	  				'RS1("info_corre") = s_info_corre
