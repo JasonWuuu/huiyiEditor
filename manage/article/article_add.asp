@@ -304,7 +304,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6" style="height: 100%;">
-                                <div class="row left-container">
+                                <div class="row left-container" style="height: 778px;">
                                     <div class="col-md-3" style="padding: 0px;">
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs" role="tablist">
@@ -506,7 +506,7 @@
                                                         </ul>
                                                     </li>
                                                 </ul>
-                                                <div class="style-result pre-scrollable" style="max-height: 800px;">
+                                                <div class="style-result pre-scrollable" style="max-height: 726px;">
                                                     ÑשÊ½...
                                                 </div>
 

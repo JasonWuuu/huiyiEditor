@@ -9,7 +9,7 @@ $(function () {
         //         $("#templateCategoryList").html(templateHtml);
         //     });
         // }
-        var templateCategory=["½ðÒøÅÆVIP", "¶À¼ÒÊÓµã", "ÊÐ³¡¿ì±¨", "¹ú¼ÊÈÈµã", "ÉÏÊÐ¹«Ë¾", "ÆäËû"];
+        var templateCategory=["ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½VIP", "ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½", "ï¿½Ð³ï¿½ï¿½ì±¨", "ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½", "ï¿½ï¿½ï¿½Ð¹ï¿½Ë¾", "ï¿½ï¿½ï¿½ï¿½"];
         listTemplateCategory();
     });
 
@@ -18,7 +18,7 @@ $(function () {
 
     function removeTemplateCategory(){
         var dataId = $(this).parent().parent().attr("data-id");
-        var url = './article_category_delete?id='+dataId;
+        var url = './article_category_delete.asp?id='+dataId;
         $.get(url).then(function (data) {
             console.log("delete the category:" + data);
             listTemplateCategory();
@@ -51,7 +51,7 @@ $(function () {
             categoryContainer.append($("<button class='btn btn-primary'></button>")
                                     .attr("data-target", "#addTemplateCategory")
                                     .attr("data-toggle", "modal")
-                                    .text("Ìí¼Ó"));
+                                    .text("ï¿½ï¿½ï¿½"));
             $("#templateCategoryList").html(categoryContainer.html());
 
         });
