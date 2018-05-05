@@ -17,7 +17,7 @@ function convertTableToImage(html) {
     return Promise.all(list).then(function () {
         var convertedHtml = container$.html();
         return convertedHtml;
-    }).catch(function(){
+    }).catch(function () {
         console.log('表格转图片失败');
     });
 }
@@ -74,3 +74,30 @@ function getBase64(img) {
         return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
     }
 }
+
+$(function () {
+    $("#modile_image_sortable").sortable({
+        sort: function (event, ui) {
+            var srcList = [];
+            $("#modile_image_sortable").find("li image").each(function (index, entity) {
+                srcList.push(entity);
+            });
+            $("#info_file_id").val(srcList.join('#'));
+        }
+    });
+    $("#modile_image_sortable").disableSelection();
+    $("#info_file_id").on('change', function () {
+        var imageStr = $.trim($(this).val());
+        if (imageStr) {
+            $("#modile_image_sortable").html('');
+            var list = imageStr.split('#');
+            $(list).each(function (index, entity) {
+                var url = $.trim(entity);
+                if (url) {
+                    var template$ = $('<li class="ui-state-default"><img src="' + url + '"/></li>');
+                    template$.appendTo("#modile_image_sortable");
+                }
+            });
+        }
+    });
+});

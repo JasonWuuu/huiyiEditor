@@ -6,12 +6,12 @@
 
 <%
 
-'È¥µô×Ö·û´®Í·Î²µÄÁ¬ÐøµÄ»Ø³µºÍ¿Õ¸ñ 
+'È¥ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Í·Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Ø³ï¿½ï¿½Í¿Õ¸ï¿½ 
 function trimVBcrlf(str) 
 trimVBcrlf=rtrimVBcrlf(ltrimVBcrlf(str)) 
 end function 
 
-'È¥µô×Ö·û´®¿ªÍ·µÄÁ¬ÐøµÄ»Ø³µºÍ¿Õ¸ñ 
+'È¥ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Ø³ï¿½ï¿½Í¿Õ¸ï¿½ 
 function ltrimVBcrlf(str) 
 dim pos,isBlankChar 
 pos=1 
@@ -28,7 +28,7 @@ wend
 ltrimVBcrlf=right(str,len(str)-pos+1) 
 end function 
 
-'È¥µô×Ö·û´®Ä©Î²µÄÁ¬ÐøµÄ»Ø³µºÍ¿Õ¸ñ 
+'È¥ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ä©Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Ø³ï¿½ï¿½Í¿Õ¸ï¿½ 
 function rtrimVBcrlf(str) 
 dim pos,isBlankChar 
 pos=len(str) 
@@ -122,7 +122,7 @@ s_color_r = ""
 			pop = 0
 			pop = instr(s_sp_url,"http")
 			if pop <=0 then
-			response.Write("ÊÓÆµURL·Ç·¨")
+			response.Write("ï¿½ï¿½ÆµURLï¿½Ç·ï¿½")
 			response.end 
 			end if
 			end if
@@ -131,7 +131,7 @@ s_color_r = ""
 			pop = 0
 			pop = instr(s_sp_url_out,"http")
 			if pop <=0 then
-			response.Write("ÊÓÆµURL·Ç·¨")
+			response.Write("ï¿½ï¿½ÆµURLï¿½Ç·ï¿½")
 			response.end 
 			end if
 			end if
@@ -167,16 +167,16 @@ For EI = 0 To UBound(EE)
 					SQL = "SELECT TOP 1 * FROM A_ARTICLE WHERE INFO_TITLE = '" & s_info_title & "'"
 				RS.Open SQL,CONN,adOpenKeyset ,adLockReadOnly
 					IF RS.RecordCount >0 THEN
-					Response.Write "¼ÇÂ¼Ôö¼ÓÖØ¸´£¬Çë²é¿´ÊÇ·ñÒÑ¾­ÓÐÏàÍ¬Àà±ð£¬ºÍÏàÍ¬±êÌâµÄÎÄÕÂ£¬Ð»Ð»ÅäºÏ"
+					Response.Write "ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½é¿´ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ð£¬ºï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½Ð»Ð»ï¿½ï¿½ï¿½"
 					Response.End 
 					END IF
 				RS.Close 
 				if s_info_corre = "" then
-				s_info_corre = "ÎÞ"
+				s_info_corre = "ï¿½ï¿½"
 				end if
 			
 			if s_zhuanti = "" then
-				s_zhunati = "ÎÞ"
+				s_zhunati = "ï¿½ï¿½"
 				end if
 					WB_FILE_NO = "A" & ID_NAME("INFO_NO")
 					
@@ -186,32 +186,32 @@ For EI = 0 To UBound(EE)
 				ELSE
 				MM = MONTH(DATE)
 				END IF
-'´¦ÀíÎÄÕÂµÄ±êÌâ
+'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ±ï¿½ï¿½ï¿½
 
 IF S_SP_URL_OUT <> "" THEN
 		SQL1 = "SELECT TOP 1 * FROM A_CLASS WHERE CLASS_NO='" & S_CLASS_NO & "'"
 		RS1.Open SQL1,CONN,1,1
 			IF RS1.RecordCount>0 THEN
-				S_INFO_TITLE = "¡¶" & RS1("CLASS_NAME") & "¡·" & S_INFO_TITLE
+				S_INFO_TITLE = "ï¿½ï¿½" & RS1("CLASS_NAME") & "ï¿½ï¿½" & S_INFO_TITLE
 	
 			END IF
 			RS1.CLOSE 
 END IF
 				
-					'´¦Àí×Ö·û
-					YXTH="<p style='text-indent: 2em; text-align: justify; line-height: 1.5em; margin-bottom: 5px; margin-top: 5px;'>    <span style='color: rgb(0, 0, 0); font-family: Î¢ÈíÑÅºÚ, 'Microsoft YaHei';'><font size='+16'>"
+					'ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
+					YXTH="<p style='text-indent: 2em; text-align: justify; line-height: 1.5em; margin-bottom: 5px; margin-top: 5px;'>    <span style='color: rgb(0, 0, 0); font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½, 'Microsoft YaHei';'><font size='+16'>"
 					YXTHJW = "</font></span></p>"
-					XTH="<p style='text-indent: 2em; text-align: justify; line-height: 1.5em; margin-bottom: 5px; margin-top: 5px;'>    <span style='color: rgb(0, 0, 0); font-family: Î¢ÈíÑÅºÚ, 'Microsoft YaHei';'>"
+					XTH="<p style='text-indent: 2em; text-align: justify; line-height: 1.5em; margin-bottom: 5px; margin-top: 5px;'>    <span style='color: rgb(0, 0, 0); font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½, 'Microsoft YaHei';'>"
 					XTHJW = "</span></p>"
 					QTP="<center><img src='http://img.dakayi.cc/pic/" & year(date) & MM & "/"
 					HTP="' width='100%'/></center>"
-					'Ôö¼Ó¼ÇÂ¼
+					'ï¿½ï¿½ï¿½Ó¼ï¿½Â¼
 					 s_info_desc=replace(s_info_desc,"#TPT#",QTP)
 					 s_info_desc=replace(s_info_desc,"#TPW#",HTP)
 					  s_info_desc=replace(s_info_desc,"#BTT#","<b>")
 					 s_info_desc=replace(s_info_desc,"#BTW#","</b>")
 					 s_info_desc=replace(s_info_desc,"#SPT#","<a href='")
-					 s_info_desc=replace(s_info_desc,"#SPW#","'>µã»÷Ç°Íù¹Û¿´ÊÓÆµ</a>")
+					 s_info_desc=replace(s_info_desc,"#SPW#","'>ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Û¿ï¿½ï¿½ï¿½Æµ</a>")
 					 s_info_desc=replace(s_info_desc,chr(13),XTHJW & XTH)
 					 s_info_desc = XTH & s_info_desc & XTHJW
 					 
@@ -220,7 +220,7 @@ END IF
 					 s_info_descn=replace(s_info_descn,"#BTT#","<b>")
 					 s_info_descn=replace(s_info_descn,"#BTW#","</b>")
 					 s_info_descn=replace(s_info_descn,"#SPT#","<a href='")
-					 s_info_descn=replace(s_info_descn,"#SPW#","'>µã»÷Ç°Íù¹Û¿´ÊÓÆµ</a>")
+					 s_info_descn=replace(s_info_descn,"#SPW#","'>ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Û¿ï¿½ï¿½ï¿½Æµ</a>")
 					 s_info_descn=replace(s_info_descn,chr(13),YXTHJW & YXTH)
 					 s_info_descn = YXTH & s_info_descn & YXTHJW
 					 
@@ -236,7 +236,9 @@ END IF
 					RS1("info_descn") = s_info_descn
 	  				RS1("info_find") = "NO"
 	  				'RS1("INFO_FILE") = s_info_file
-					RS1("INFO_FILE") = YEAR(DATE) & MM & "/" & FF(EI)
+					'change by wucong, we will use full path	
+					'RS1("INFO_FILE") = YEAR(DATE) & MM & "/" & FF(EI)
+					RS1("INFO_FILE") = FF(EI)
 						RS1("SP_URL") = s_sp_url
 						RS1("SP_URL_OUT") = s_sp_url_out
 	  				'RS1("info_corre") = s_info_corre
@@ -255,7 +257,7 @@ END IF
 						RS1("RE_DATE") = DATE() + EI & " " & TIME
 	  				RS1.UpdateBatch 
 	  				RS1.Close 
-	  				'´¦ÀíÏà¹ØÐÅÏ¢
+	  				'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 					
 					SQL = "DELETE FROM D_CORRE WHERE INFO_NO = '" & WB_FILE_NO & "'"
 					CONN.Execute(SQL)
@@ -337,10 +339,10 @@ END IF
 								XGNR = XGNR & RS("HS_NO") & "-"
 								END IF
 						END IF
-					A = Split(RS("ALICE_NAME"), "¡¢")
+					A = Split(RS("ALICE_NAME"), "ï¿½ï¿½")
 					
 							FOR I = 0 TO UBOUND(A)
-								IF A(I) <> "ÎÞ" THEN
+								IF A(I) <> "ï¿½ï¿½" THEN
 									POP = 0
 									POP = INSTR(MYDESC,A(I))
 									IF POP  >0 THEN
@@ -369,7 +371,7 @@ NEXT
 %>
 <html>
 <head>
-<title>ÄÚÈÝÓëÎÄÕÂÔö¼Ó³É¹¦</title>
+<title>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³É¹ï¿½</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <link rel="stylesheet" href="font.css">
@@ -381,12 +383,12 @@ NEXT
 </head>
 
 <body bgcolor="white">
-<div align="center"><font color="#0000FF" class="main">£¨ÄÚ²¿×ÊÁÏÏµÍ³¹ÜÀí£©ÄÚÈÝÓëÎÄÕÂÏµÍ³Ôö¼Ó </font></div>
+<div align="center"><font color="#0000FF" class="main">ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ </font></div>
 <hr>
 <form method="POST" action="article_main.asp" name="un" >
   <table width="580" border="0" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="1" align="center" cellpadding="6" bgcolor="#000000">
     <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">Àà±ð£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ï¿½</td>
       <td width="68%" class="main"> 
           <%=DISPLAY_NAME("A_CLASS",s_class_no,"CLASS_NO","CLASS_NAME")
         %> 
@@ -395,24 +397,24 @@ NEXT
     </tr>
     
     <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">×ÊÁÏ±êÌâ£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ï¿½Ï±ï¿½ï¿½â£º</td>
       <td width="68%" class="main">
       <%=s_info_title%>
        </td>
     </tr>
 	 <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">¸±±êÌâ£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ï¿½ï¿½ï¿½â£º</td>
       <td width="68%" class="main">
       <%=s_sub_title%>
        </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">¼ò½é£º</td>
+      <td width="32%" class="main">ï¿½ï¿½é£º</td>
       <td width="68%" class="main"> 
 		  '<img src="http://img.dakayi.cc/pic/<%=rs("info_file")%>" width="640px">
 		  img src="<%=rs("info_file")%>" width="640px">
 		<%
-		IF s_if_html = "ÊÇ" THEN
+		IF s_if_html = "ï¿½ï¿½" THEN
 		Response.Write s_info_desc
 		ELSE
 		%>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -424,55 +426,55 @@ NEXT
       </td>
     </tr>
 	  <tr bgcolor="#FFFFFF">
-      <td width="32%" class="main">ÊÓÆµURL£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ÆµURLï¿½ï¿½</td>
       <td width="68%" class="main">
       <%=s_sp_url%>
         
       </td>
     </tr>
 	 <tr bgcolor="#FFFFFF">
-      <td width="32%" class="main">ÊÓÆµÍâURL£º</td>
+      <td width="32%" class="main">ï¿½ï¿½Æµï¿½ï¿½URLï¿½ï¿½</td>
       <td width="68%" class="main">
       <%=s_sp_url_out%>
         
       </td>
     </tr>
       <tr bgcolor="#FFFFFF">
-      <td width="32%" class="main">²éÕÒ×Ö·û´®£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½</td>
       <td width="68%" class="main">
       <%=s_info_find%>
         
       </td>
     </tr>
 	  <tr bgcolor="#FFFFFF">
-      <td width="32%" class="main">Ïà¹Ø×Ö·û´®£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½</td>
       <td width="68%" class="main">
       <%=s_info_corre%>
         
       </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">Ïà¹Ø²éÑ¯×Ö·û£º</td>
+      <td width="32%" class="main">ï¿½ï¿½Ø²ï¿½Ñ¯ï¿½Ö·ï¿½ï¿½ï¿½</td>
       <td width="68%" class="main"><small> 
       <%=s_info_corre%>
         </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">×ÊÁÏÀ´Ô´£º</td>
+      <td width="32%" class="main">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½</td>
       <td width="68%" class="main"> 
       <%=s_info_source%>
         
       </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 
-      <td width="21%" class="main">ÊÖ»úÍ¼Æ¬£º</td>
+      <td width="21%" class="main">ï¿½Ö»ï¿½Í¼Æ¬ï¿½ï¿½</td>
       <td width="79%" class="main"> 
 		 '<img src="http://img.dakayi.cc/pic/<%=s_info_file%>">
 		 <img src="<%=s_info_file%>">
        </td>
     </tr>
    <tr bgcolor="#FFFFFF"> 
-      <td width="21%" class="main">Ïà¹ØÀ¸Ä¿£º</td>
+      <td width="21%" class="main">ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½</td>
       <td width="79%" class="main"> 
 		 <%
 			SQL = "SELECT * FROM A_CLASS ORDER BY CLASS_NO"
@@ -491,7 +493,7 @@ NEXT
        </td>
 		 </tr>
 		 <tr bgcolor="#FFFFFF"> 
-      <td width="21%" class="main">ËùÊô×¨Ìâ£º</td>
+      <td width="21%" class="main">ï¿½ï¿½ï¿½ï¿½×¨ï¿½â£º</td>
       <td width="79%" class="main"> 
 		 <%
 			SQL = "SELECT * FROM A_ZHUANTI ORDER BY NUM"
@@ -510,14 +512,14 @@ NEXT
        </td>
 		 </tr>
 		  <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">ÊÇ·ñ±¸Íü£º</td>
+      <td width="32%" class="main">ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½</td>
       <td width="68%" class="main"> 
       <%=s_if_bw%>
         
       </td>
     </tr>
 	  <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">ÊÇ·ñÍÆ¼ö£º</td>
+      <td width="32%" class="main">ï¿½Ç·ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½</td>
       <td width="68%" class="main"> 
       <%=s_if_tj%>
         
@@ -525,25 +527,25 @@ NEXT
     </tr>
 	 </tr>
 	  <tr bgcolor="#FFFFFF"> 
-      <td width="32%" class="main">ÍÆ¹ãµØÖ·£º</td>
+      <td width="32%" class="main">ï¿½Æ¹ï¿½ï¿½Ö·ï¿½ï¿½</td>
       <td width="68%" class="main"> 
      http://www.dakayi.cc/article/X<%=WB_FILE_NO%>.html
         
       </td>
     </tr>
 	 <tr bgcolor="#FFFFFF"> 
-	 <td width="32%" class="main">ÏÖÔÚÍÆ¹ã:</td>
+	 <td width="32%" class="main">ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½:</td>
       <td width="68%" class="main"> 
-      <a href="http://zhanzhang.baidu.com/linksubmit/url" target='_blank'>´ò¿ª°Ù¶ÈÍÆ¹ã</a> £¨¸´ÖÆÉÏÃæµÄÍøÖ·½øÐÐÌá½»£©
+      <a href="http://zhanzhang.baidu.com/linksubmit/url" target='_blank'>ï¿½ò¿ª°Ù¶ï¿½ï¿½Æ¹ï¿½</a> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½
         
       </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 
       <td colspan="2"> 
         <div align="center"><br>
-          <input type="submit" name="add" value="¼ÌÐøÉêÇë">
-          <input type="submit" name="home" value="·µ»ØÖ÷Ò³">
-          <input type="submit" name="search" value="½øÈë²éÑ¯">
+          <input type="submit" name="add" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½">
+          <input type="submit" name="home" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³">
+          <input type="submit" name="search" value="ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯">
         </div>
       </td>
   </table>
