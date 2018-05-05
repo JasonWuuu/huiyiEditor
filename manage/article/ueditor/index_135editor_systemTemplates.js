@@ -201,21 +201,18 @@ $(function () {
     }
 
     function refreshOtherColleagueTemplates(category){
-
         $("#otherColleagueTemplates > div").empty();
         if (!$.trim($("#otherColleagueTemplates > div").html())) {
             var url="";
-            if(category){
-                url = './article_template_list.asp';
+            if($(category)[0]){
+                url = './article_template_list.asp?cid=' + $(category).attr("data-id");
             }
             else{
-                
                 url = './article_template_list.asp';
-
             }
             $.get(url).then(function (data) {
                 //var html = $.html(data).text();
-                var target = wrapItemsFromBackend(data, category);
+                var target = wrapItemsFromBackend(data, $(category).text());
                 $("#otherColleagueTemplates").html(target.html());
             });
         }
@@ -225,13 +222,13 @@ $(function () {
         $("#personalTemplates > div").empty();
         if (!$.trim($("#personalTemplates > div").html())) {
             var url="";
-            if(category){
-                url = './article_template_list.asp?ismine=true';
+            if($(category)[0]){
+                url = './article_template_list.asp?ismine=true&cid='+ $(category).attr("data-id");
             }else{
                 url = './article_template_list.asp?ismine=true';
             }
             $.get(url).then(function (data) {
-                var target = wrapItemsFromBackend(data, category);
+                var target = wrapItemsFromBackend(data, $(category).text());
                 $("#personalTemplates").html(target.html());
             });
 
@@ -244,26 +241,26 @@ $(function () {
         $('ul.categorydivs > li.list-group-item').removeClass('active');
         $(this).addClass("active");
 
-        refreshPersonalTemplates($(this).text());
+        refreshPersonalTemplates($(this));
     }
 
     function refreshOtherTemplateByCategory(){
         $('ul.categorydivs > li.list-group-item').removeClass('active');
         $(this).addClass("active");
-        refreshOtherColleagueTemplates($(this).text());
+        refreshOtherColleagueTemplates($(this));
     }
 
     function addTemplateCagegory(activeTemplate){
-        var templateCategory=["金银牌VIP", "独家视点", "市场快报", "国际热点", "上市公司", "其他"];   
-        
+        // var templateCategory=["金银牌VIP", "独家视点", "市场快报", "国际热点", "上市公司", "其他"];   
+        var templateCategory = getAllCategories();
         var categorydivs = $("<ul class='list-inline list-group categorydivs'></ul>");
         $.each(templateCategory, function(index, data){
-            if(activeTemplate == data){
-                var categoryDiv = $("<li class='list-group-item active'></li>").text(data);
+            if(activeTemplate == data.text){
+                var categoryDiv = $("<li class='list-group-item active'></li>").attr("data-id", data.dataId).text(data.text);
                 categorydivs.append(categoryDiv);
             }else{
 
-                var categoryDiv = $("<li class='list-group-item'></li>").text(data);
+                var categoryDiv = $("<li class='list-group-item'></li>").attr("data-id", data.dataId).text(data.text);
                 categorydivs.append(categoryDiv);
             }
         });
@@ -284,11 +281,59 @@ $(function () {
     }
 
 //
+    // $("#save-as-template").on('click', function () {
+    //     var html = UE.getEditor('editor').getContent();
+    //     var url = './article_template_add.asp';
+    //     $.post(url, { content: html }, function (data) {
+    //         alert("?????????");
+    //         refreshPersonalTemplates();
+    //     });
+    // });
+
     $("#save-as-template").on('click', function () {
         var html = UE.getEditor('editor').getContent();
+        $("#templateCategoryforSave").html(html);
+        // init the category select
+        $("#categorySelect").empty();
+        var allCategory = getAllCategories();
+        $.each(allCategory, function(index, entity){
+
+            var option = $("<option></option>").attr("data-id", entity.dataId).text(entity.text);
+            $("#categorySelect").append(option);
+        });
+
+    });
+
+    function getAllCategories(){
+        var categories = [];
+        var url = './article_category_list.asp';
+        // synchronized to get all categories
+        $.ajax({ 
+            type : "get", 
+            url : url, 
+            async : false, 
+            success : function (data) {
+                var ulData = "<div>" + data + "</div>";
+                $(ulData).find("div").each(function(index, entity){
+                    var c = {};
+                    c.dataId = $(entity).attr("data-id");
+                    c.text = $(entity).text();
+                    categories.push(c);
+                });
+            }
+            }); 
+        
+        return categories;
+    }
+
+
+    $("#saveTemplateCategoryforArticleBtn").on('click', function () {
+        var html = UE.getEditor('editor').getContent();
+        var categoryId = $("#categorySelect option:selected").attr("data-id");
+
         var url = './article_template_add.asp';
-        $.post(url, { content: html }, function (data) {
-            alert("?????????");
+        $.post(url, { content: html, cid:categoryId }, function (data) {
+            alert("保存模板成功");
             refreshPersonalTemplates();
         });
     });

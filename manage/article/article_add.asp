@@ -579,18 +579,16 @@
                                         <script id="editor" type="text/plain" style="width: 100%; height: 600px;"></script>
                                     </div>
                                     <div class="editorslide" data-step="3" data-position="left">
-                                        <ul>
-                                            <li>
-                                                <button type="button" id="save-as-draft" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
+                                        
+                                                <button  id="save-as-draft" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
                                                     title="" data-original-title="保存内容">
                                                     保存到草稿</button>
-                                            </li>
-                                            <li>
-                                                <button type="button" id="save-as-template" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
+                                 
+                                          
+                                                <button  data-target="#saveTemplateCategoryforArticle"  data-toggle="modal" id="save-as-template" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
                                                     title="" data-original-title="保存内容">
                                                     保存到模板</button>
-                                            </li>
-                                        </ul>
+                                            
                                     </div>
                                     <!-- <div id="btns">
                         <div>
@@ -645,7 +643,46 @@
     </div>
     <!-- /.modal -->
 
-
+<!--保存模板的类别 -->
+<div class="modal fade" id="saveTemplateCategoryforArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">保存为模板</h4>
+            </div>
+            <div id="templateCategoryforSave" class="pre-scrollable" style="max-height: 300px;">
+            </div>
+            
+            
+            <div class="modal-footer">
+                <select class="span3" id="categorySelect">
+                    <option>1</option>
+                    
+                </select>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveTemplateCategoryforArticleBtn">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--添加模板类别 -->
+<div class="modal fade" id="addTemplateCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加新的模板分类</h4>
+            </div>
+            
+            <input type="text" class="form-control" placeholder="模板分类名字" id="newTemplateCategory">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="addTemplateCategoryBtn">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 </html>
 

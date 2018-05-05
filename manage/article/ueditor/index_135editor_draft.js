@@ -19,7 +19,7 @@ $(function () {
     $("#personalDraft").on("mouseleave", ".ParpersonalTempContainer", hideDeleteIcon);
     $("#personalDraft").on("click", ".personalTempContainer", applyStyleTosystemTemplates);
     $("#personalDraft").on("click", ".glyphicon.glyphicon-trash.del", delDraft);
-    //µ±Êó±ê½øÈë¸öÈËÄ£°å»òÕßÍ¬ÊÂÄ£°åµÄÊ±ºò£¬ÏÔÊ¾É¾³ý°´Å¥
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾É¾ï¿½ï¿½ï¿½ï¿½Å¥
     function showDeleteIcon(){
         var divContainer = $("<div class='subPersonalTempContainer' align='right'></div>");
         var icon_del = $("<span class='glyphicon glyphicon-trash del' aria-hidden='true'></span>").attr("id", $(this).find(".personalTempContainer").attr("data-id"));
@@ -39,7 +39,7 @@ $(function () {
             refreshDraftList();
         });
 
-        event.stopPropagation();//×èÖ¹Ã°ÅÝ
+        event.stopPropagation();//ï¿½ï¿½Ö¹Ã°ï¿½ï¿½
     }
 
     function refreshDraftList(){
@@ -84,7 +84,7 @@ $(function () {
             if (data) {
                 var draftListUrl = './article_draft_list.asp';
                 refreshDraftList();
-                alert('±£´æ²Ý¸å³É¹¦');
+                alert('ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½É¹ï¿½');
             }
         });
     });
