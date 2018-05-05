@@ -35,6 +35,8 @@
         -->
     </style>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -182,9 +184,11 @@
             <tr bgcolor="#FFFFFF">
                 <td width="21%" class="main">手机图片：</td>
                 <td width="79%" class="main">
-                    <textarea id="info_file_id" name="info_file" rows="10" cols="60" class="form-control"></textarea>
+                    <ul id="modile_image_sortable">
+                    </ul>
+                    <textarea id="info_file_id" name="info_file" rows="10" cols="60" class="form-control" style="display:none;"></textarea>
                     <button class="btn" type="button" onclick="mutipleCrop()">批量裁剪图片</button>用#号分开，对应标题
-		 <font color="red">制作小的图片200X200的，可以为空</font>
+		 <font color="red" style="display:none;">制作小的图片200X200的，可以为空</font>
                 </td>
             </tr>
 

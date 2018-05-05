@@ -94,7 +94,7 @@ $(function () {
                 }
             });
         }
-        imageUrlList = concatUrl(imageUrlList);
+        //imageUrlList = concatUrl(imageUrlList);
         return imageUrlList;
     }
     //将图片加载到图片集中
@@ -190,11 +190,13 @@ function complete() {
 
     Promise.all(listPromise).then(function () {
         $("#croppingImages").find(".imageContainer").each(function (index, entity) {
-            var myImage$ = $(this).find("img");
-            var url = myImage$.attr("data-src");
-            imageUrlsList.push(url);
+            if ($(this).find("span > i.imageSelected")[0]) {
+                var myImage$ = $(this).find("img");
+                var url = myImage$.attr("data-src");
+                imageUrlsList.push(url);
+            }
         });
-        imageUrlsList = splitUrl(imageUrlsList);
+        //imageUrlsList = splitUrl(imageUrlsList);
         console.log(imageUrlsList);
         var croppedImageUrls = imageUrlsList.join("#");
 
