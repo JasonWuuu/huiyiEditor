@@ -9,7 +9,7 @@ $(function () {
         //         $("#templateCategoryList").html(templateHtml);
         //     });
         // }
-        var templateCategory=["ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½VIP", "ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½", "ï¿½Ð³ï¿½ï¿½ì±¨", "ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½", "ï¿½ï¿½ï¿½Ð¹ï¿½Ë¾", "ï¿½ï¿½ï¿½ï¿½"];
+        var templateCategory=["??????VIP", "???????", "?§Ô???", "???????", "???§Û??", "????"];
         listTemplateCategory();
     });
 
@@ -51,7 +51,7 @@ $(function () {
             categoryContainer.append($("<button class='btn btn-primary'></button>")
                                     .attr("data-target", "#addTemplateCategory")
                                     .attr("data-toggle", "modal")
-                                    .text("ï¿½ï¿½ï¿½"));
+                                    .text("Ìí¼ÓÐÂµÄÄ£°åÀà±ð"));
             $("#templateCategoryList").html(categoryContainer.html());
 
         });
