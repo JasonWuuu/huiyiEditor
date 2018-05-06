@@ -193,8 +193,10 @@ $(function () {
     function delTemplate(event){
         var id = $(this).attr("id");
         var url = './article_template_delete.asp?id='+id;
+        //
+        var activeCategory = $("ul.categorydivs > li.active");
         $.get(url).then(function (data) {
-            refreshPersonalTemplates();
+            refreshPersonalTemplates(activeCategory);
         });
 
         event.stopPropagation();
@@ -218,8 +220,10 @@ $(function () {
         }
     }
 
+    //argument is selected jquery object
     function refreshPersonalTemplates(category){
         $("#personalTemplates > div").empty();
+    
         if (!$.trim($("#personalTemplates > div").html())) {
             var url="";
             if($(category)[0]){
