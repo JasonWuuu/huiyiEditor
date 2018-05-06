@@ -69,8 +69,8 @@ $(function () {
                     .css("top", "0px")
                     .css("left", "0px")
                     .css("z-index", 2);
-                var closeTitle = $("<p>???????</p>");
-                var closeContainer = $("<button class='btn'></button>").text("???")
+                var closeTitle = $("<p>样式列表</p>");
+                var closeContainer = $("<button class='btn'></button>").text("关闭")
                     .on("click", function () {
                         templateContainer.remove();
 
@@ -232,6 +232,7 @@ $(function () {
                 url = './article_template_list.asp?ismine=true';
             }
             $.get(url).then(function (data) {
+                console.log("fetch template html:" + data + "--fetched");
                 var target = wrapItemsFromBackend(data, $(category).text());
                 $("#personalTemplates").html(target.html());
             });
@@ -333,6 +334,7 @@ $(function () {
 
     $("#saveTemplateCategoryforArticleBtn").on('click', function () {
         var html = UE.getEditor('editor').getContent();
+        console.log("save template html: " + html + "-- save");
         var categoryId = $("#categorySelect option:selected").attr("data-id");
 
         var url = './article_template_add.asp';
