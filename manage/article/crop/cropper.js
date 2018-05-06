@@ -94,7 +94,7 @@ $(function () {
                 }
             });
         }
-        //imageUrlList = concatUrl(imageUrlList);
+        imageUrlList = concatUrl(imageUrlList);
         return imageUrlList;
     }
     //将图片加载到图片集中
@@ -196,13 +196,23 @@ function complete() {
                 imageUrlsList.push(url);
             }
         });
-        //imageUrlsList = splitUrl(imageUrlsList);
+        var splitedImageUrlsList = splitUrl(imageUrlsList);
         console.log(imageUrlsList);
-        var croppedImageUrls = imageUrlsList.join("#");
+        var croppedImageUrls = splitedImageUrlsList.join("#");
 
         if (window.opener != null && !window.opener.closed) {
             var info_file_id = window.opener.document.getElementById("info_file_id");//获取父窗口中元素，也可以获取父窗体中的值
             info_file_id.value = croppedImageUrls;//将子窗体中的值传递到父窗体中去
+            
+            var modile_image_sortable = window.opener.document.getElementById("modile_image_sortable");//获取父窗口中元素，也可以获取父窗体中的值
+            
+            console.log(modile_image_sortable);
+            var liList=[];
+            $(imageUrlsList).each(function(index,entity){
+                liList.push('<li class="ui-state-default"><img src="' + entity + '" width="160px" height="90px"/></li>');
+            });
+
+            modile_image_sortable.innerHTML = liList.join('');
         }
 
         window.close();

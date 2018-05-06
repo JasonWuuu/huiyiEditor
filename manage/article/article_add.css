@@ -160,19 +160,24 @@
     height: 10px;
 }
 
-#sortable {
+#modile_image_sortable {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 450px;
+    width: 100%;
 }
 
-#sortable li {
+#modile_image_sortable li {
     margin: 3px 3px 3px 0;
     padding: 1px;
     float: left;
-    width: 100px;
-    height: 90px;
+    width: 164px;
+    height: 94px;
     font-size: 4em;
     text-align: center;
+}
+
+.ui-state-highlight {
+    height: 1.5em;
+    line-height: 1.2em;
 }

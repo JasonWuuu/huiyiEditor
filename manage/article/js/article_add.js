@@ -75,18 +75,42 @@ function getBase64(img) {
     }
 }
 
+function splitUrl(urlArr) {
+    var result = [];
+    $(urlArr).each(function (index, entity) {
+        var item = entity.subString(entity.indexOf('/') + 1);
+        result.push(item);
+    });
+    return result;
+}
+
+function concatUrl(urlArr) {
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth() + 1).toString();
+    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + month + '/';
+    var result = [];
+    $(urlArr).each(function (index, entity) {
+        var item = preFixUrl + entity;
+        result.push(item);
+    });
+    return result;
+}
+
 $(function () {
     $("#modile_image_sortable").sortable({
-        sort: function (event, ui) {
-            var srcList = [];
-            $("#modile_image_sortable").find("li image").each(function (index, entity) {
-                srcList.push(entity);
-            });
-            $("#info_file_id").val(srcList.join('#'));
-        }
+        placeholder: "ui-state-highlight"
     });
     $("#modile_image_sortable").disableSelection();
+    $("#modile_image_sortable").on("sortstop", function (event, ui) { 
+        var srcList = [];
+        $("#modile_image_sortable").find("li img").each(function (index, entity) {
+            srcList.push($(entity).attr("src"));
+        });
+        srcList = splitUrl(srcList);
+        $("#info_file_id").val(srcList.join('#'));
+    });
     $("#info_file_id").on('change', function () {
+        console.log($.trim($(this).val()));
         var imageStr = $.trim($(this).val());
         if (imageStr) {
             $("#modile_image_sortable").html('');
@@ -94,10 +118,11 @@ $(function () {
             $(list).each(function (index, entity) {
                 var url = $.trim(entity);
                 if (url) {
-                    var template$ = $('<li class="ui-state-default"><img src="' + url + '"/></li>');
+                    var template$ = $('<li class="ui-state-default"><img src="' + url + '" width="160px" height="90px"/></li>');
                     template$.appendTo("#modile_image_sortable");
                 }
             });
         }
     });
 });
+
