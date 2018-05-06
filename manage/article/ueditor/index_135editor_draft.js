@@ -19,7 +19,7 @@ $(function () {
     $("#personalDraft").on("mouseleave", ".ParpersonalTempContainer", hideDeleteIcon);
     $("#personalDraft").on("click", ".personalTempContainer", applyStyleTosystemTemplates);
     $("#personalDraft").on("click", ".glyphicon.glyphicon-trash.del", delDraft);
-    //�����������ģ�����ͬ��ģ���ʱ����ʾɾ����ť
+    //�����������ģ�����ͬ��ģ���ʱ����ʾɾ�����?
     function showDeleteIcon(){
         var divContainer = $("<div class='subPersonalTempContainer' align='right'></div>");
         var icon_del = $("<span class='glyphicon glyphicon-trash del' aria-hidden='true'></span>").attr("id", $(this).find(".personalTempContainer").attr("data-id"));
@@ -84,7 +84,7 @@ $(function () {
             if (data) {
                 var draftListUrl = './article_draft_list.asp';
                 refreshDraftList();
-                alert('����ݸ�ɹ�');
+                alert('����ݸ�ɹ�');
             }
         });
     });
