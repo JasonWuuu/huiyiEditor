@@ -75,6 +75,27 @@ function getBase64(img) {
     }
 }
 
+function splitUrl(urlArr) {
+    var result = [];
+    $(urlArr).each(function (index, entity) {
+        var item = entity.subString(entity.indexOf('/') + 1);
+        result.push(item);
+    });
+    return result;
+}
+
+function concatUrl(urlArr) {
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth() + 1).toString();
+    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + month + '/';
+    var result = [];
+    $(urlArr).each(function (index, entity) {
+        var item = preFixUrl + entity;
+        result.push(item);
+    });
+    return result;
+}
+
 $(function () {
     $("#modile_image_sortable").sortable({
         placeholder: "ui-state-highlight"
@@ -85,6 +106,7 @@ $(function () {
         $("#modile_image_sortable").find("li img").each(function (index, entity) {
             srcList.push($(entity).attr("src"));
         });
+        srcList = splitUrl(srcList);
         $("#info_file_id").val(srcList.join('#'));
     });
     $("#info_file_id").on('change', function () {
@@ -103,3 +125,4 @@ $(function () {
         }
     });
 });
+

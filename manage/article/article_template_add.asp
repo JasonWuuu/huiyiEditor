@@ -1,21 +1,15 @@
-�?<!-- #include virtual = "/include/mylib.asp" -->
+<!-- #include virtual = "/include/mylib.asp" -->
 
 <!-- #include virtual = "/include/auth.asp" -->
 <!-- #include virtual = "/include/wsql.asp" -->
 
 
 <%
-'×÷Õß£ºÂíºéÑÒ  ÓÚ 2002-4-21 ±àÐ´
-'¹¦ÄÜ£ºÎÄÕÂµÄÈ·ÈÏ
-'²Ù×÷£º±¾½Å±¾ÓÉ²¿ÃÅ¾­ÀíÒÔÉÏ²Ù×÷
- 'ÅÐ¶Ï¼¶±ð
- 
 	set CONN = Server.CreateObject("ADODB.Connection")
     CONN.open CONNSTR,"",""  
 	set RS = Server.CreateObject("ADODB.RecordSet")
 	set RS1 = Server.CreateObject("ADODB.RecordSet")
 	set RSLIB = Server.CreateObject("ADODB.RecordSet")
-	'ÅÐ¶ÏÈ¨ÏÞ
 	
      content = request("content")
 	 cid = request("cid")

@@ -94,7 +94,7 @@ $(function () {
                 }
             });
         }
-        //imageUrlList = concatUrl(imageUrlList);
+        imageUrlList = concatUrl(imageUrlList);
         return imageUrlList;
     }
     //将图片加载到图片集中
@@ -196,9 +196,9 @@ function complete() {
                 imageUrlsList.push(url);
             }
         });
-        //imageUrlsList = splitUrl(imageUrlsList);
+        var splitedImageUrlsList = splitUrl(imageUrlsList);
         console.log(imageUrlsList);
-        var croppedImageUrls = imageUrlsList.join("#");
+        var croppedImageUrls = splitedImageUrlsList.join("#");
 
         if (window.opener != null && !window.opener.closed) {
             var info_file_id = window.opener.document.getElementById("info_file_id");//获取父窗口中元素，也可以获取父窗体中的值
