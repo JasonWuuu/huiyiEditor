@@ -155,7 +155,7 @@ function startCrop() {
         if (dataId) {
             $("#croppingImages").find("[data-id=" + dataId + "]").find("img").attr("src", croppedImageUrl);
         } else {
-            addImage(croppedImageUrl,true);
+            addImage(croppedImageUrl, true);
         }
     }
 }
@@ -178,6 +178,10 @@ function addImage(croppedImageUrl, isSelected) {
 function complete() {
     var listPromise = [];
     var imageUrlsList = [];
+    var selectedImageCount = $("#croppingImages").find(".imageContainer").find("span > i.imageSelected").length;
+    var uploadCount = 0;
+    $("uploadLoading").show();
+    
     $("#croppingImages").find(".imageContainer").each(function (index, entity) {
         //判断图片是否被选中
         if (!$(this).find("span > i.imageSelected")[0]) {
@@ -193,7 +197,12 @@ function complete() {
         } else {
             myImage$.attr("data-src", url);
         }
+
+        uploadCount++;
+        $("uploadLoading").val("正在上传" + uploadCount + '/' + selectedImageCount);
     });
+
+    $("uploadLoading").hide();
 
     Promise.all(listPromise).then(function () {
         $("#croppingImages").find(".imageContainer").each(function (index, entity) {
