@@ -160,7 +160,7 @@ function startCrop() {
 }
 
 function addImage(croppedImageUrl) {
-    var imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;" /><span><i class="fa fa-check-circle imageUnselected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
+    var imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;height:124px;" /><span><i class="fa fa-check-circle imageUnselected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
     var clone$ = imageTemplate$.clone(true);
     clone$.attr("data-id", getImageId());
     clone$.find("img").attr("src", croppedImageUrl);
@@ -220,22 +220,27 @@ function complete() {
 }
 
 function splitUrl(urlArr) {
-    var result = [];
-    $(urlArr).each(function (index, entity) {
-        var item = entity.substr(entity.indexOf('/') + 1);
-        result.push(item);
-    });
-    return result;
+    var result = []; $(urlArr).each(function (index, entity) {
+        var item = entity.substr(entity.lastIndexOf('/')
+            + 1); result.push(item);
+    }); return result;
 }
 
 function concatUrl(urlArr) {
     var year = new Date().getFullYear().toString();
-    var month = (new Date().getMonth() + 1).toString();
-    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + month + '/';
+    var month = new Date().getMonth() + 1;
+    var formatMonth = function (num) {
+        if (num < 10) {
+            return "0" + num;   //如果时分秒少于10，则在前面加字符串0
+        }
+        else {
+            return "" + num;        //否则，直接返回原有数字
+        }
+    }
+    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + formatMonth(month) + '/';
     var result = [];
     $(urlArr).each(function (index, entity) {
-        var item = preFixUrl + entity;
-        result.push(item);
+        var item = preFixUrl + entity; result.push(item);
     });
     return result;
 }
