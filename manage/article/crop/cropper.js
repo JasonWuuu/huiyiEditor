@@ -222,7 +222,7 @@ function complete() {
 function splitUrl(urlArr) {
     var result = [];
     $(urlArr).each(function (index, entity) {
-        var item = entity.subString(entity.indexOf('/') + 1);
+        var item = entity.substr(entity.indexOf('/') + 1);
         result.push(item);
     });
     return result;
