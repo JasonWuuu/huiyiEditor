@@ -154,13 +154,19 @@ function startCrop() {
         if (dataId) {
             $("#croppingImages").find("[data-id=" + dataId + "]").find("img").attr("src", croppedImageUrl);
         } else {
-            addImage(croppedImageUrl);
+            addImage(croppedImageUrl,true);
         }
     }
 }
 
-function addImage(croppedImageUrl) {
-    var imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;" /><span><i class="fa fa-check-circle imageUnselected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
+function addImage(croppedImageUrl, isSelected) {
+    var imageTemplate$ = null;
+    if (isSelected) {
+        imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;height:124px;" /><span><i class="fa fa-check-circle imageSelected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
+    }
+    else {
+        imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;height:124px;" /><span><i class="fa fa-check-circle imageUnselected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
+    }
     var clone$ = imageTemplate$.clone(true);
     clone$.attr("data-id", getImageId());
     clone$.find("img").attr("src", croppedImageUrl);
@@ -203,12 +209,12 @@ function complete() {
         if (window.opener != null && !window.opener.closed) {
             var info_file_id = window.opener.document.getElementById("info_file_id");//获取父窗口中元素，也可以获取父窗体中的值
             info_file_id.value = croppedImageUrls;//将子窗体中的值传递到父窗体中去
-            
+
             var modile_image_sortable = window.opener.document.getElementById("modile_image_sortable");//获取父窗口中元素，也可以获取父窗体中的值
-            
+
             console.log(modile_image_sortable);
-            var liList=[];
-            $(imageUrlsList).each(function(index,entity){
+            var liList = [];
+            $(imageUrlsList).each(function (index, entity) {
                 liList.push('<li class="ui-state-default"><img src="' + entity + '" width="160px" height="90px"/></li>');
             });
 
@@ -220,22 +226,27 @@ function complete() {
 }
 
 function splitUrl(urlArr) {
-    var result = [];
-    $(urlArr).each(function (index, entity) {
-        var item = entity.subString(entity.indexOf('/') + 1);
-        result.push(item);
-    });
-    return result;
+    var result = []; $(urlArr).each(function (index, entity) {
+        var item = entity.substr(entity.lastIndexOf('/')
+            + 1); result.push(item);
+    }); return result;
 }
 
 function concatUrl(urlArr) {
     var year = new Date().getFullYear().toString();
-    var month = (new Date().getMonth() + 1).toString();
-    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + month + '/';
+    var month = new Date().getMonth() + 1;
+    var formatMonth = function (num) {
+        if (num < 10) {
+            return "0" + num;   //如果时分秒少于10，则在前面加字符串0
+        }
+        else {
+            return "" + num;        //否则，直接返回原有数字
+        }
+    }
+    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + formatMonth(month) + '/';
     var result = [];
     $(urlArr).each(function (index, entity) {
-        var item = preFixUrl + entity;
-        result.push(item);
+        var item = preFixUrl + entity; result.push(item);
     });
     return result;
 }

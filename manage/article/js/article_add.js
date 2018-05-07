@@ -76,24 +76,60 @@ function getBase64(img) {
 }
 
 function splitUrl(urlArr) {
-    var result = [];
-    $(urlArr).each(function (index, entity) {
-        var item = entity.subString(entity.indexOf('/') + 1);
-        result.push(item);
-    });
-    return result;
+    var result = []; $(urlArr).each(function (index, entity) {
+        var item = entity.substr(entity.lastIndexOf('/')
+            + 1); result.push(item);
+    }); return result;
 }
 
 function concatUrl(urlArr) {
     var year = new Date().getFullYear().toString();
-    var month = (new Date().getMonth() + 1).toString();
-    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + month + '/';
+    var month = new Date().getMonth() + 1;
+    var formatMonth = function (num) {
+        if (num < 10) {
+            return "0" + num;   //如果时分秒少于10，则在前面加字符串0
+        }
+        else {
+            return "" + num;        //否则，直接返回原有数字
+        }
+    }
+    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + formatMonth(month) + '/';
     var result = [];
     $(urlArr).each(function (index, entity) {
-        var item = preFixUrl + entity;
-        result.push(item);
+        var item = preFixUrl + entity; result.push(item);
     });
     return result;
+}
+
+function mutipleCrop() {
+    var imageUrls = $.trim($("[name='info_file']").val());
+    var imageUrlList = [];
+    if (imageUrls) {
+        var arr = imageUrls.split("#");
+        $(arr).each(function (index, entity) {
+            if ($.trim(entity)) {
+                imageUrlList.push(entity);
+            }
+        });
+    }
+
+    if (imageUrlList.length === 0) {
+        var html$ = $("<div></div>").append($("[name='info_desc']").val());
+        html$.find("img").each(function (index, entity) {
+            var url = $.trim($(entity).attr("src"));
+            //只有内网的图片才可以放进去
+            if (new RegExp(window.location.origin).test(url)) {
+                imageUrlList.push(url);
+            }
+
+        });
+    }
+    imageUrlList = splitUrl(imageUrlList);
+    var croppedImageUrls = imageUrlList.join("#");
+    $("[name='info_file']").val(croppedImageUrls);
+
+    window.open("./crop/home.html", "批量裁剪图片", "width=1200,height=600");
+
 }
 
 $(function () {

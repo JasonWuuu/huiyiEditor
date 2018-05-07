@@ -75,6 +75,18 @@
                 })
             }
 
+    $.fn.modal.Constructor.prototype.hideModal = function () {
+            var that = this
+            this.$element.hide()
+            this.backdrop(function () {
+                //判断当前页面所有的模态框都已经隐藏了之后body移除.modal-open，即body出现滚动条。
+                $('.modal.fade.in').length === 0 && that.$body.removeClass('modal-open')
+                that.resetAdjustments()
+                that.resetScrollbar()
+                that.$element.trigger('hidden.bs.modal')
+            })
+        }
+
         var lsdz = "";
         function checkIn() {
             if (document.un.class_no.options[document.un.class_no.selectedIndex].value < 1) {
@@ -740,36 +752,5 @@
             alert("编辑器中必须包含文字");
             $("#myNewStyleEditor").modal("hide");
         }
-    }
-
-    function mutipleCrop(){
-       var imageUrls= $.trim($("[name='info_file']").val());
-       var imageUrlList=[];
-       if(imageUrls){
-          var arr= imageUrls.split("#");
-          $(arr).each(function(index,entity){
-              if($.trim(entity)){
-                imageUrlList.push(entity);
-              }
-          });
-       }
-
-       if(imageUrlList.length===0){
-            var html$=$("<div></div>").append($("[name='info_desc']").val());
-            html$.find("img").each(function(index,entity){
-                var url=$.trim($(entity).attr("src"));
-                //只有内网的图片才可以放进去
-                if(new RegExp(window.location.origin).test(url)){
-                    imageUrlList.push(url);
-                }
-                
-            });
-       }
-
-        var croppedImageUrls=imageUrlList.join("#");
-           $("[name='info_file']").val(croppedImageUrls);
-
-        window.open("./crop/home.html","批量裁剪图片","width=1200,height=600");
-    
     }
 </script>
