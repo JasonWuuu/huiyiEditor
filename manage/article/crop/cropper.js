@@ -98,10 +98,11 @@ $(function () {
         return imageUrlList;
     }
     var dataFlag = window.opener.document.getElementById("btn_crop").getAttribute("data-flag");
+    console.log(dataFlag);
     //将图片加载到图片集中
     var imageUrlList = getInitImageList();
     $(imageUrlList).each(function (index, entity) {
-        addImage(entity, dataFlag);
+        addImage(entity, "unselected");
     });
 
     //删除图片集合中的图片
@@ -168,17 +169,19 @@ function startCrop() {
         if (dataId) {
             $("#croppingImages").find("[data-id=" + dataId + "]").find("img").attr("src", croppedImageUrl);
         } else {
-            addImage(croppedImageUrl,true);
+            addImage(croppedImageUrl,"selected");
         }
     }
 }
 
 function addImage(croppedImageUrl, isSelected) {
     var imageTemplate$ = null;
-    if (isSelected) {
+    if (isSelected  == "selected" ) {
+        console.log("image is selected");
         imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;height:124px;" /><span><i class="fa fa-check-circle imageSelected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
     }
     else {
+        console.log("image is unselected");
         imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;height:124px;" /><span><i class="fa fa-check-circle imageUnselected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
     }
     var clone$ = imageTemplate$.clone(true);
