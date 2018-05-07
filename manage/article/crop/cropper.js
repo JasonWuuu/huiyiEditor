@@ -131,7 +131,20 @@ $(function () {
         imgurl = $(this).attr('src');
         dataId = $(this).parent().attr("data-id");
         var $image = $('#image');
-        $image.cropper('destroy').attr('src', imgurl).cropper({});
+        var options = {
+            aspectRatio: 16 / 9,
+            preview: '.img-preview',
+            crop: function (e) {
+                $dataX.val(Math.round(e.detail.x));
+                $dataY.val(Math.round(e.detail.y));
+                $dataHeight.val(Math.round(e.detail.height));
+                $dataWidth.val(Math.round(e.detail.width));
+                $dataRotate.val(e.detail.rotate);
+                $dataScaleX.val(e.detail.scaleX);
+                $dataScaleY.val(e.detail.scaleY);
+            }
+        };
+        $image.cropper('destroy').attr('src', imgurl).cropper(options);
         $("#startToCrop").attr("data-id", dataId);
     });
 });
