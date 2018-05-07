@@ -111,6 +111,7 @@ function mutipleCrop() {
                 imageUrlList.push(entity);
             }
         });
+        $("#btn_crop").attr("data-flag",true);
     }
 
     if (imageUrlList.length === 0) {
@@ -123,6 +124,7 @@ function mutipleCrop() {
             }
 
         });
+        $("#btn_crop").attr("data-flag", false);
     }
     imageUrlList = splitUrl(imageUrlList);
     var croppedImageUrls = imageUrlList.join("#");

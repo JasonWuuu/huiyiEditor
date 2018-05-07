@@ -97,10 +97,11 @@ $(function () {
         imageUrlList = concatUrl(imageUrlList);
         return imageUrlList;
     }
+    var dataFlag = window.opener.document.getElementById("btn_crop").getAttribute("data-flag");
     //将图片加载到图片集中
     var imageUrlList = getInitImageList();
     $(imageUrlList).each(function (index, entity) {
-        addImage(entity);
+        addImage(entity, dataFlag);
     });
 
     //删除图片集合中的图片
