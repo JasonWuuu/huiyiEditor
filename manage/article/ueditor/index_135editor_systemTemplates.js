@@ -69,8 +69,8 @@ $(function () {
                     .css("top", "0px")
                     .css("left", "0px")
                     .css("z-index", 2);
-                var closeTitle = $("<p>???????</p>");
-                var closeContainer = $("<button class='btn'></button>").text("???")
+                var closeTitle = $("<p>Ä£°åÃëË¢</p>");
+                var closeContainer = $("<button class='btn'></button>").text("¹Ø±Õ")
                     .on("click", function () {
                         templateContainer.remove();
 
