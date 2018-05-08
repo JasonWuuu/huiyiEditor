@@ -75,17 +75,7 @@
                 })
             }
 
-    $.fn.modal.Constructor.prototype.hideModal = function () {
-            var that = this
-            this.$element.hide()
-            this.backdrop(function () {
-                //判断当前页面所有的模态框都已经隐藏了之后body移除.modal-open，即body出现滚动条。
-                $('.modal.fade.in').length === 0 && that.$body.removeClass('modal-open')
-                that.resetAdjustments()
-                that.resetScrollbar()
-                that.$element.trigger('hidden.bs.modal')
-            })
-        }
+    
 
         var lsdz = "";
         function checkIn() {

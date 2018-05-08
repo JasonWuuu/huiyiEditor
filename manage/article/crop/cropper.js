@@ -132,7 +132,20 @@ $(function () {
         imgurl = $(this).attr('src');
         dataId = $(this).parent().attr("data-id");
         var $image = $('#image');
-        $image.cropper('destroy').attr('src', imgurl).cropper({});
+        var options = {
+            aspectRatio: 16 / 9,
+            preview: '.img-preview',
+            crop: function (e) {
+                $dataX.val(Math.round(e.detail.x));
+                $dataY.val(Math.round(e.detail.y));
+                $dataHeight.val(Math.round(e.detail.height));
+                $dataWidth.val(Math.round(e.detail.width));
+                $dataRotate.val(e.detail.rotate);
+                $dataScaleX.val(e.detail.scaleX);
+                $dataScaleY.val(e.detail.scaleY);
+            }
+        };
+        $image.cropper('destroy').attr('src', imgurl).cropper(options);
         $("#startToCrop").attr("data-id", dataId);
     });
 });
@@ -155,14 +168,14 @@ function startCrop() {
         if (dataId) {
             $("#croppingImages").find("[data-id=" + dataId + "]").find("img").attr("src", croppedImageUrl);
         } else {
-            addImage(croppedImageUrl, true);
+            addImage(croppedImageUrl,"selected");
         }
     }
 }
 
 function addImage(croppedImageUrl, isSelected) {
     var imageTemplate$ = null;
-    if (isSelected) {
+    if (isSelected  == "selected" ) {
         imageTemplate$ = $('<div class="imageContainer"><img class="img-responsive center-block" style="width:220px;height:124px;" /><span><i class="fa fa-check-circle imageSelected" /></span><button type="button" class="close imageClose"><span aria-hidden="true">&times;</span></button></div>');
     }
     else {
@@ -178,9 +191,9 @@ function addImage(croppedImageUrl, isSelected) {
 function complete() {
     var listPromise = [];
     var imageUrlsList = [];
-    var selectedImageCount = $("#croppingImages").find(".imageContainer").find("span > i.imageSelected").length;
-    var uploadCount = 0;
-    $("uploadLoading").show();
+    //var selectedImageCount = $("#croppingImages").find(".imageContainer").find("span > i.imageSelected").length;
+    //var uploadCount = 0;
+    $("#uploadLoading").show();
     
     $("#croppingImages").find(".imageContainer").each(function (index, entity) {
         //判断图片是否被选中
@@ -198,13 +211,14 @@ function complete() {
             myImage$.attr("data-src", url);
         }
 
-        uploadCount++;
-        $("uploadLoading").val("正在上传" + uploadCount + '/' + selectedImageCount);
+        //uploadCount++;
+        //$("#uploadLoading").text("正在上传" + uploadCount + '/' + selectedImageCount);
     });
 
-    $("uploadLoading").hide();
+    
 
     Promise.all(listPromise).then(function () {
+        $("#uploadLoading").hide();
         $("#croppingImages").find(".imageContainer").each(function (index, entity) {
             if ($(this).find("span > i.imageSelected")[0]) {
                 var myImage$ = $(this).find("img");
@@ -213,7 +227,6 @@ function complete() {
             }
         });
         var splitedImageUrlsList = splitUrl(imageUrlsList);
-        console.log(imageUrlsList);
         var croppedImageUrls = splitedImageUrlsList.join("#");
 
         if (window.opener != null && !window.opener.closed) {
@@ -222,7 +235,6 @@ function complete() {
 
             var modile_image_sortable = window.opener.document.getElementById("modile_image_sortable");//获取父窗口中元素，也可以获取父窗体中的值
 
-            console.log(modile_image_sortable);
             var liList = [];
             $(imageUrlsList).each(function (index, entity) {
                 liList.push('<li class="ui-state-default"><img src="' + entity + '" width="160px" height="90px"/></li>');

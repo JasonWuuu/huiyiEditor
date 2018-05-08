@@ -111,7 +111,7 @@ function mutipleCrop() {
                 imageUrlList.push(entity);
             }
         });
-        $("#btn_crop").attr("data-flag",true);
+        $("#btn_crop").attr("data-flag","selected");
     }
 
     if (imageUrlList.length === 0) {
@@ -124,7 +124,7 @@ function mutipleCrop() {
             }
 
         });
-        $("#btn_crop").attr("data-flag", false);
+        $("#btn_crop").attr("data-flag", "unselected");
     }
     imageUrlList = splitUrl(imageUrlList);
     var croppedImageUrls = imageUrlList.join("#");
