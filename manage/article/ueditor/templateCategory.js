@@ -9,7 +9,6 @@ $(function () {
         //         $("#templateCategoryList").html(templateHtml);
         //     });
         // }
-        var templateCategory=["??????VIP", "???????", "?г???", "???????", "???й??", "????"];
         listTemplateCategory();
     });
 
@@ -37,24 +36,29 @@ $(function () {
 
     //
     function listTemplateCategory(){
+        $("#templateCategoryList").empty();
         var categoryList = [];
         var url = './article_category_list.asp';
-        var categoryContainer = $("<ul></ul>").addClass("list-group");
+        var categoryContainer = $("<ul id='sortable'></ul>").addClass("list-group");
         $.get(url).then(function (data) {
             var ulData = "<div>" + data + "</div>";
             $(ulData).find("div").each(function(index, entity){
-                var categoryDiv = $("<li></li>").addClass("list-group-item").attr("data-id", $(entity).attr("data-id")).text($(entity).text());
+                var categoryLi = $('<li class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>').attr("data-id", $(entity).attr("data-id")).text($(entity).text());
                 var btn = $('<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-                categoryDiv.append(btn);
-                categoryContainer.append(categoryDiv);
+                categoryLi.append(btn);
+                categoryContainer.append(categoryLi);
             });
-            categoryContainer.append($("<button class='btn btn-primary'></button>")
-                                    .attr("data-target", "#addTemplateCategory")
-                                    .attr("data-toggle", "modal")
-                                    .text("添加新的模板类别"));
-            $("#templateCategoryList").html(categoryContainer.html());
+            // categoryContainer.append($("<button class='btn btn-primary'></button>")
+            //                         .attr("data-target", "#addTemplateCategory")
+            //                         .attr("data-toggle", "modal")
+            //                         .text("添加新的模板类别"));
+            $("#templateCategoryList").append(categoryContainer);
+            $( "#sortable" ).sortable();
+            $( "#sortable" ).disableSelection();
 
         });
     }
+
+    
 
 })
