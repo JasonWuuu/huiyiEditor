@@ -202,7 +202,8 @@
                     <textarea id="info_file_id" style="height:15px;opacity:0;" name="info_file" rows="1" cols="60" class="form-control" style="display:block;"></textarea>
                     <br>
                     <input type="hidden" id="hdn_gallery"/>
-                    <button class="btn" id="btn_crop" type="button" onclick="mutipleCrop()">批量裁剪图片</button>
+                    <button class="btn" id="btn_crop" type="button" onclick="mutipleCrop()">批量裁剪图片</button>&nbsp;&nbsp;
+                    <button class="btn" id="btn_crop" type="button" onclick="clearImageBuffer()">重新获取文章图片</button>
                     <font color="red" style="display:none;">用#号分开，对应标题 制作小的图片200X200的，可以为空</font>
                 </td>
             </tr>

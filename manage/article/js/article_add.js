@@ -103,20 +103,30 @@ function concatUrl(urlArr) {
 
 function mutipleCrop() {
     var imageUrlList = [];
-    var html$ = $("<div></div>").append($("[name='info_desc']").val());
-    html$.find("img").each(function (index, entity) {
-        var url = $.trim($(entity).attr("src"));
-        //只有内网的图片才可以放进去
-        if (new RegExp(window.location.origin).test(url)) {
-            imageUrlList.push(url);
-        }
+    if (!$.trim($("#hdn_gallery").val())){
+        var html$ = $("<div></div>").append($("[name='info_desc']").val());
+        html$.find("img").each(function (index, entity) {
+            var url = $.trim($(entity).attr("src"));
+            //只有内网的图片才可以放进去
+            if (new RegExp(window.location.origin).test(url)) {
+                imageUrlList.push(url);
+            }
 
-    });
-    imageUrlList = splitUrl(imageUrlList);
-    var galleryUrls = imageUrlList.join("#");
-    $("#hdn_gallery").val(galleryUrls);
+        });
+        imageUrlList = splitUrl(imageUrlList);
+        var galleryUrls = imageUrlList.join("#");
+        $("#hdn_gallery").val(galleryUrls);
+    }
+    
     window.open("./crop/home.html", "批量裁剪图片", "width=1200,height=600");
 
+}
+
+function clearImageBuffer(){
+    $("#hdn_gallery").val("");
+    $("[name='info_file']").val("");
+    $("#modile_image_sortable").html("");
+    alert("重新获取文章图片成功，请重新裁剪手机图片！");
 }
 
 $(function () {

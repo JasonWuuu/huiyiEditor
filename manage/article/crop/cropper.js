@@ -39,6 +39,19 @@ function concatUrl(urlArr) {
     return result;
 }
 
+function stringToList(arrStr, splitChar) {
+    var list = [];
+    var arr = arrStr.split(splitChar);
+    if (arr) {
+        $(arr).each(function (index, entity) {
+            if (entity && $.trim(entity)) {
+                list.push($.trim(entity));
+            }
+        });
+    }
+    return list;
+}
+
 function getSelectedImageList() {
     var info_file_id = window.opener.document.getElementById("info_file_id").value;
     var selectedImageUrlList = stringToList(info_file_id, '#');
@@ -149,6 +162,8 @@ function startCrop() {
         var dataId = $("#startToCrop").attr("data-id");
         if (dataId) {
             $("#croppingImages").find("[data-id=" + dataId + "]").find("img").attr("src", croppedImageUrl);
+            $("#croppingImages").find("[data-id=" + dataId + "]").find("span > i").removeClass("imageUnselected").addClass("imageSelected");
+            calcSelectedImageCount();
         } else {
             addImage(croppedImageUrl, true);
         }

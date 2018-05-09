@@ -18,7 +18,7 @@
 	'ÅÐ¶ÏÈ¨ÏÞ
 	
 
-    SQL = "select Id,Name FROM A_TEMPLATE_CATEGORY"
+    SQL = "select Id,Name FROM A_TEMPLATE_CATEGORY ORDER BY [Order] asc"
 
     RS.Open SQL,CONN,1,1
 		DO WHILE NOT RS.EOF 
