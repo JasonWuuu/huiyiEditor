@@ -43,7 +43,7 @@ $(function () {
         $.get(url).then(function (data) {
             var ulData = "<div>" + data + "</div>";
             $(ulData).find("div").each(function(index, entity){
-                var categoryLi = $('<li class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>').attr("data-id", $(entity).attr("data-id")).text($(entity).text());
+                var categoryLi = $('<li class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>').attr("data-id", $(entity).attr("data-id")).attr("id", $(entity).attr("data-id")).text($(entity).text());
                 var btn = $('<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
                 categoryLi.append(btn);
                 categoryContainer.append(categoryLi);
@@ -53,7 +53,16 @@ $(function () {
             //                         .attr("data-toggle", "modal")
             //                         .text("添加新的模板类别"));
             $("#templateCategoryList").append(categoryContainer);
-            $( "#sortable" ).sortable();
+            $( "#sortable" ).sortable({
+                stop:function(){
+                    var newOrder = $( "#sortable" ).sortable("toArray");
+                    var orderStr = newOrder.join("|");
+                    var url = "./article_category_order.asp";
+                    $.post(url, { ids: orderStr },function(data){
+                        alert("update success");
+                    })
+                }
+            });
             $( "#sortable" ).disableSelection();
 
         });
