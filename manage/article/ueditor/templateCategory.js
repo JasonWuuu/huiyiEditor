@@ -59,7 +59,7 @@ $(function () {
                     var orderStr = newOrder.join("|");
                     var url = "./article_category_order.asp";
                     $.post(url, { ids: orderStr },function(data){
-                        alert("update success");
+                        // alert("update success");
                     })
                 }
             });
