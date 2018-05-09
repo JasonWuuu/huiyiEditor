@@ -310,10 +310,10 @@
         <div class="modal-dialog modal-lg" style="width: 1200px;">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title" id="getCroppedCanvasTitle">±à¼­Æ÷</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5 class="modal-title" id="getCroppedCanvasTitle">±à¼­Æ÷</h5>
                 </div>
                 <div class="modal-body my-editor-container">
                     <!-- Content -->
@@ -610,7 +610,9 @@
                                         <script id="editor" type="text/plain" style="width: 100%; height: 600px;"></script>
                                     </div>
                                     <div class="editorslide" data-step="3" data-position="left">
-                                        
+                                                <button type="button" id="btn_clearData" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
+                                                    title="" data-original-title="Çå¿Õ±à¼­Æ÷ÄÚÈÝ" onclick="clearData()">Çå¿Õ±à¼­Æ÷ÄÚÈÝ</button>
+
                                                 <button  id="save-as-draft" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
                                                     title="" data-original-title="±£´æÄÚÈÝ">
                                                     ±£´æµ½²Ý¸å</button>
