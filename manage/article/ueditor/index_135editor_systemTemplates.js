@@ -163,6 +163,8 @@ $(function () {
         refreshOtherColleagueTemplates();
     });
 
+    $("[href='#editor-tpls']").click(templateInit);
+
     $("#personalTemplates").on("click", ".personalTempContainer", applyStyleTosystemTemplates);
     $("#otherColleagueTemplates").on("click", ".personalTempContainer", applyStyleTosystemTemplates);
     
@@ -175,6 +177,9 @@ $(function () {
     $("#personalTemplates").on("click", ".glyphicon.glyphicon-trash.del", delTemplate);
 
 
+    function templateInit(){
+        refreshPersonalTemplates();
+    }
 
 
     //????????????????????????????????????
