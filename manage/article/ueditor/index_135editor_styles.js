@@ -32,6 +32,7 @@ $(function () {
         }
 
         ue.execCommand("inserthtml", targetNode.html());
+        ue.fireEvent("catchRemoteImage");
     }
 });
 
