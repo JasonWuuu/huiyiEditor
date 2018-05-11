@@ -77,8 +77,8 @@ function getBase64(img) {
 
 function splitUrl(urlArr) {
     var result = []; $(urlArr).each(function (index, entity) {
-        var item = entity.substr(entity.lastIndexOf('/')
-            + 1); result.push(item);
+        var item = entity.replace("http://img.dakayi.cc/pic/","");
+         result.push(item);
     }); return result;
 }
 
@@ -93,7 +93,7 @@ function concatUrl(urlArr) {
             return "" + num;        //否则，直接返回原有数字
         }
     }
-    var preFixUrl = 'http://img.dakayi.cc/pic/' + year + formatMonth(month) + '/';
+    var preFixUrl = 'http://img.dakayi.cc/pic/';
     var result = [];
     $(urlArr).each(function (index, entity) {
         var item = preFixUrl + entity; result.push(item);
@@ -118,7 +118,7 @@ function mutipleCrop() {
         $("#hdn_gallery").val(galleryUrls);
     }
     
-    window.open("./crop/home.html", "批量裁剪图片", "width=1200,height=600");
+    window.open("./crop_modi/home.html", "批量裁剪图片", "width=1200,height=600");
 
 }
 
@@ -148,6 +148,7 @@ $(function () {
         if (imageStr) {
             $("#modile_image_sortable").html('');
             var list = imageStr.split('#');
+            list = concatUrl(list);
             $(list).each(function (index, entity) {
                 var url = $.trim(entity);
                 if (url) {

@@ -84,7 +84,7 @@ Function check_op(s_chr,d_chr)
 <script src="./ueditor/templateCategory.js"></script>
 <script src="./ueditor/index_135editor_draft.js"></script>
 <script src="./js/dom-to-image.js"></script>
-<script src="./js/article_add.js"></script>
+<script src="./js/article_modi.js"></script>
 <link href="./article_add.css" rel="stylesheet">
 <style type="text/css">
 
@@ -137,15 +137,15 @@ function checkIn()
       return false;
 }
 </script>
-<div align="center"><font color="#0000FF" class="main">（内部资料系统管理）内容与文章系统修改 </font></div>
+<div align="center"><h2>（内部资料系统管理）内容与文章系统修改</h2></div>
 <hr>
 <form method="POST" action="article_save_up.asp" name="un">
 <input type="hidden" name="info_no" value="<%=Request("info_no")%>">
-  <table width="953" border="0" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="1" align="center" cellpadding="6" bgcolor="#000000">
+  <table width="953" border="0" bordercolordark="#99CCFF" bordercolorlight="#99CCFF" cellspacing="1" align="center" cellpadding="6" bgcolor="#000000" style="width:953px;" class="table table-bordered">
     <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">类别：</td>
       <td width="79%" class="main"> 
-        <select name="class_no" >
+        <select name="class_no"  class="form-control">
            <%
         SQL = "SELECT * FROM A_CLASS ORDER BY CLASS_NO"
         RS1.OPEN SQL,CONN,1,1
@@ -178,14 +178,14 @@ function checkIn()
     <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">资料标题：</td>
       <td width="79%" class="main">
-        <input type="text" name="info_title" size="50" value="<%=RS("INFO_TITLE")%>">
+        <input type="text" name="info_title" size="50" value="<%=RS("INFO_TITLE")%>" class="form-control">
       
           </td>
     </tr>
 	  <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">副标题：</td>
       <td width="79%" class="main">
-        <input type="text" name="sub_title" size="50" value="<%=RS("SUB_TITLE")%>">
+        <input type="text" name="sub_title" size="50" value="<%=RS("SUB_TITLE")%>" class="form-control">
       
           </td>
     </tr>
@@ -198,14 +198,13 @@ function checkIn()
 		INFO_DESC = REPLACE(INFO_DESC,"</span></p>",chr(13))
 				
 		%>
-        <textarea name="info_desc_modi_hide" rows="10" cols="60" style="display: none"><%=INFO_DESC%></textarea>
-        <textarea name="info_desc_modi" rows="10" cols="60" ></textarea>
+        <textarea name="info_desc" rows="10" cols="60" style="opacity:1;" class="form-control"><%=INFO_DESC%></textarea>
       </td>
     </tr>
    <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">视频URL：</td>
       <td width="79%" class="main"> 
-        <input type="text" name="sp_url" size="30" value="<%=rs("sp_url")%>">
+        <input type="text" name="sp_url" size="30" value="<%=rs("sp_url")%>" class="form-control">
      
        
       </td>
@@ -213,7 +212,7 @@ function checkIn()
       <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">视频外URL：</td>
       <td width="79%" class="main"> 
-        <input type="text" name="sp_url_out" size="30" value="<%=rs("sp_url_out")%>">
+        <input type="text" name="sp_url_out" size="30" value="<%=rs("sp_url_out")%>" class="form-control">
      
        
       </td>
@@ -221,15 +220,8 @@ function checkIn()
     <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">资料来源：</td>
       <td width="79%" class="main"> 
-        <input type="text" name="info_source" size="30" value="<%=rs("info_source")%>">
+        <input type="text" name="info_source" size="30" value="<%=rs("info_source")%>" class="form-control">
       </td>
-    </tr>
-    
-	  <tr bgcolor="#FFFFFF"> 
-      <td width="21%" class="main">手机图片：</td>
-      <td width="79%" class="main"> 
-		 <input type="text" name="info_file" size="16" value="<%=rs("info_file")%>"><font color=red>制作小的图片100X100的，可以为空</font>
-       </td>
     </tr>
 
     <tr bgcolor="#FFFFFF">
@@ -237,10 +229,9 @@ function checkIn()
                 <td width="79%" class="main">
                     <ul id="modile_image_sortable">
                     </ul>
-                    <textarea id="info_file_id" style="height:15px;opacity:0;" name="info_file" rows="1" cols="60" class="form-control" style="display:block;"></textarea>
+                    <textarea id="info_file_id" style="height:15px;opacity:0;" name="info_file" rows="1" cols="60" class="form-control" style="display:block;"><%=rs("info_file")%></textarea>
                     <br>
                     <input type="hidden" id="hdn_gallery"/>
-                    <div id='hideImgaes'><%=rs("info_file")%></div>
                     <button class="btn" id="btn_crop" type="button" onclick="mutipleCrop()">批量裁剪图片</button>&nbsp;&nbsp;
                     <button class="btn" id="btn_crop" type="button" onclick="clearImageBuffer()">重新获取文章图片</button>
                     <font color="red" style="display:none;">用#号分开，对应标题 制作小的图片200X200的，可以为空</font>
@@ -335,15 +326,15 @@ function checkIn()
 	 <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">上载日期：</td>
       <td width="79%" class="main"> 
-        <input type="text" name="re_date" size="30" value="<%=rs("re_date")%>">
+        <input type="text" name="re_date" size="30" value="<%=rs("re_date")%>" class="form-control" style="width:200px;">
       </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 
       <td colspan="2"> 
         <div align="center"><br>
-          <input type="submit" name="Submit" value="提交申请" onClick="return checkIn();">
-          <input type="reset" name="Submit2" value="重填信息">
-          <input type="button" name="home" value="返    回" onClick=history.back();>
+          <input type="submit" name="Submit" value="提交申请" onClick="return checkIn();" class="btn btn-primary">
+          <input type="reset" name="Submit2" value="重填信息" class="btn">
+          <input type="button" name="home" value="返    回" onClick=history.back(); class="btn">
         </div>
       </td>
   </table>
@@ -763,57 +754,54 @@ function checkIn()
 </div>
 
 <script>
-  // for modify page
+
 function putArticleToEditor(){
-    var current_editor = UE.getEditor('editor');
-    var article = $('[name=info_desc_modi_hide]').html();
-    console.log(article);
-    var uncodeHtml = $('<div/>').html(article).text();
-    current_editor.execCommand('inserthtml', uncodeHtml);
+    var current_editor = UE.getEditor("editor");
+    var article = $("[name=info_desc]").val();
+    var uncodeHtml = $("<div></div>").html(article).text();
+    current_editor.execCommand("inserthtml", article);
 }
 
-    $(function(){
-        $("[name='info_desc_modi']").on("click",function(){
-            $("#myNewStyleEditor").modal({
-                backdrop: false,
-                show: true
-            });
-            putArticleToEditor();
+$(function(){
+    $("[name='info_desc']").on("click",function(){
+        $("#myNewStyleEditor").modal({
+            backdrop: false,
+            show: true
         });
-
-        
-
-        $("[name='info_desc_modi']").focus(function(){
-            $(this).trigger("click");
-        });
+        putArticleToEditor();
     });
+ 
+    $("[name='info_desc']").focus(function(){
+        $(this).trigger("click");
+    });
+});
 
-    function completeEdit(){
-        if($.trim(UE.getEditor("editor").getContentTxt())){
-            var html = UE.getEditor("editor").getContent();
-            
-            convertTableToImage(html).then(function(data){
-                $("[name='info_desc_modi']").html(data);
-                return data;
-                }).then(function(data){
-                   var htmlImag$= $("<div></div>").css({width:"735px"}).append(data);
-                    return domToimage(htmlImag$[0]);
-                }).then(function(data){
-                    var src=$(data).find("img").attr("src");
-                    $("[name='info_desc_modi']").parent().css({backgroundImage:"url("+ src+")",backgroundRepeat:"no-repeat"});
-                    $("[name='info_desc_modi']").css({opacity:0,cursor:"hand"});
-                    $("#myNewStyleEditor").modal("hide");
-                }).catch(function(){
-                    $("[name='info_desc_modi']").parent().removeAttr("style").css({width:"735px"});
-                    $("[name='info_desc_modi']").css({opacity:1,cursor:"text"});
-                    $("#myNewStyleEditor").modal("hide");
-                });
-            }
-        else{
-            alert("编辑器中必须包含文字");
-            $("#myNewStyleEditor").modal("hide");
+function completeEdit(){
+    if($.trim(UE.getEditor("editor").getContentTxt())){
+        var html = UE.getEditor("editor").getContent();
+        
+        convertTableToImage(html).then(function(data){
+            $("[name='info_desc']").html(data);
+            return data;
+            }).then(function(data){
+                var htmlImag$= $("<div></div>").css({width:"735px"}).append(data);
+                return domToimage(htmlImag$[0]);
+            }).then(function(data){
+                var src=$(data).find("img").attr("src");
+                $("[name='info_desc']").parent().css({backgroundImage:"url("+ src+")",backgroundRepeat:"no-repeat"});
+                $("[name='info_desc']").css({opacity:0,cursor:"hand"});
+                $("#myNewStyleEditor").modal("hide");
+            }).catch(function(){
+                $("[name='info_desc']").parent().removeAttr("style").css({width:"735px"});
+                $("[name='info_desc']").css({opacity:1,cursor:"text"});
+                $("#myNewStyleEditor").modal("hide");
+            });
         }
+    else{
+        alert("编辑器中必须包含文字");
+        $("#myNewStyleEditor").modal("hide");
     }
+}
 </script>
 </body>
 </html>
