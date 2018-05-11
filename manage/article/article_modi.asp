@@ -231,6 +231,22 @@ function checkIn()
 		 <input type="text" name="info_file" size="16" value="<%=rs("info_file")%>"><font color=red>制作小的图片100X100的，可以为空</font>
        </td>
     </tr>
+
+    <tr bgcolor="#FFFFFF">
+                <td width="21%" class="main">手机图片：</td>
+                <td width="79%" class="main">
+                    <ul id="modile_image_sortable">
+                    </ul>
+                    <textarea id="info_file_id" style="height:15px;opacity:0;" name="info_file" rows="1" cols="60" class="form-control" style="display:block;"></textarea>
+                    <br>
+                    <input type="hidden" id="hdn_gallery"/>
+                    <div id='hideImgaes'><%=rs("info_file")%></div>
+                    <button class="btn" id="btn_crop" type="button" onclick="mutipleCrop()">批量裁剪图片</button>&nbsp;&nbsp;
+                    <button class="btn" id="btn_crop" type="button" onclick="clearImageBuffer()">重新获取文章图片</button>
+                    <font color="red" style="display:none;">用#号分开，对应标题 制作小的图片200X200的，可以为空</font>
+                </td>
+            </tr>
+
     <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">相关栏目：</td>
       <td width="79%" class="main"> 
@@ -777,19 +793,19 @@ function putArticleToEditor(){
             var html = UE.getEditor("editor").getContent();
             
             convertTableToImage(html).then(function(data){
-                $("[name='info_desc']").html(data);
+                $("[name='info_desc_modi']").html(data);
                 return data;
                 }).then(function(data){
                    var htmlImag$= $("<div></div>").css({width:"735px"}).append(data);
                     return domToimage(htmlImag$[0]);
                 }).then(function(data){
                     var src=$(data).find("img").attr("src");
-                    $("[name='info_desc']").parent().css({backgroundImage:"url("+ src+")",backgroundRepeat:"no-repeat"});
-                    $("[name='info_desc']").css({opacity:0,cursor:"hand"});
+                    $("[name='info_desc_modi']").parent().css({backgroundImage:"url("+ src+")",backgroundRepeat:"no-repeat"});
+                    $("[name='info_desc_modi']").css({opacity:0,cursor:"hand"});
                     $("#myNewStyleEditor").modal("hide");
                 }).catch(function(){
-                    $("[name='info_desc']").parent().removeAttr("style").css({width:"735px"});
-                    $("[name='info_desc']").css({opacity:1,cursor:"text"});
+                    $("[name='info_desc_modi']").parent().removeAttr("style").css({width:"735px"});
+                    $("[name='info_desc_modi']").css({opacity:1,cursor:"text"});
                     $("#myNewStyleEditor").modal("hide");
                 });
             }
