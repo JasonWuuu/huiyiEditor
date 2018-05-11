@@ -143,7 +143,7 @@ $(function () {
         $("#info_file_id").val(srcList.join('#'));
     });
     $("#info_file_id").on('change', function () {
-        console.log($.trim($(this).val()));
+       
         var imageStr = $.trim($(this).val());
         if (imageStr) {
             $("#modile_image_sortable").html('');

@@ -145,7 +145,7 @@ function checkIn()
     <tr bgcolor="#FFFFFF"> 
       <td width="21%" class="main">Àà±ð£º</td>
       <td width="79%" class="main"> 
-        <select name="class_no"  class="form-control">
+        <select name="class_no"  class="form-control" style="width:200px;">
            <%
         SQL = "SELECT * FROM A_CLASS ORDER BY CLASS_NO"
         RS1.OPEN SQL,CONN,1,1
