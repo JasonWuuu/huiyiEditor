@@ -648,7 +648,8 @@ function checkIn()
                                     <div class="editorslide" data-step="3" data-position="left">
                                                 <button type="button" id="btn_clearData" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
                                                     title="" data-original-title="清空编辑器内容" onclick="clearData()">清空编辑器内容</button>
-
+                                                <button type="button" id="btn_clearData" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
+                                                    title="" data-original-title="调整图片宽度" onclick="adjustImageWidth()">调整图片宽度</button>
                                                 <button  id="save-as-draft" tabindex="2" class="btn btn-default btn-xs" data-container="body" data-placement="left"
                                                     title="" data-original-title="保存内容">
                                                     保存到草稿</button>

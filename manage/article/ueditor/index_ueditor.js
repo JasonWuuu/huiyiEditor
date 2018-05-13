@@ -117,8 +117,8 @@ function adjustImageWidth(){
     var oriHtml = UE.getEditor('editor').getContent();
     var target = $("<div>" + oriHtml + "</div>");
      target.find("img").each(function(){
-        var width = $(this).css("width");
-        if(width.indexOf("px")>=0  && parseInt(width.substring(0, width.indexOf("px"))) > 500 ){
+        var width = $(this).width();
+        if(width > 500 ){
             $(this).css("width", "100%");
         }
         
