@@ -86,13 +86,13 @@ function sumitImageFile(base64Codes) {
 }
 
 
-UE.getEditor('editor').addListener("contentChange",function(){
-    var oriHtml = UE.getEditor('editor').getContent();
-    $("<div>" + oriHtml + "</div>").find("img").each(function(){
-        var width = $(this).css("width");
-        if(width.indexOf("px")>=0  && parseInt(width.substring(0, width.indexOf("px"))) > 500 ){
-            $(this).css("width", "100%");
-        }
+// UE.getEditor('editor').addListener("contentChange",function(){
+//     var oriHtml = UE.getEditor('editor').getContent();
+//     $("<div>" + oriHtml + "</div>").find("img").each(function(){
+//         var width = $(this).css("width");
+//         if(width.indexOf("px")>=0  && parseInt(width.substring(0, width.indexOf("px"))) > 500 ){
+//             $(this).css("width", "100%");
+//         }
         
-    });
-});
+//     });
+// });
