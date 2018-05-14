@@ -115,7 +115,9 @@ function clearData() {
 
 function adjustImageWidth(){
     var oriHtml = UE.getEditor('editor').getContent();
-    var target = $("<div>" + oriHtml + "</div>");
+    // remove width:auto
+    var removedAuto = oriHtml.replace(/width\s*:\s*auto\s*!important/g, "width:100%");
+    var target = $("<div>" + removedAuto + "</div>");
      target.find("img").each(function(){
         var width = $(this).width();
         if(width > 500 ){
