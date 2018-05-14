@@ -759,8 +759,10 @@ function checkIn()
 function putArticleToEditor(){
     var current_editor = UE.getEditor("editor");
     var article = $("[name=info_desc]").val();
-    var uncodeHtml = $("<div></div>").html(article).text();
-    current_editor.execCommand("inserthtml", article);
+    //var uncodeHtml = $("<div></div>").html(article).text();
+    //current_editor.execCommand("inserthtml", article);
+
+     current_editor.setContent(article, false);
 }
 
 $(function(){
