@@ -127,4 +127,5 @@ function adjustImageWidth(){
     });
     UE.getEditor('editor').setContent('', false);
     UE.getEditor('editor').setContent(target.html(), false);
+    alert("图片宽度调整完成");
 }
